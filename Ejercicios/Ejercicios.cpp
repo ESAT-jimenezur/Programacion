@@ -259,14 +259,14 @@ int rombo(){
       *
       **/
 
-    int altura = 20;
+    int altura = 30;
     int i, j, h;
 
     printf("Dime una altura\n");
     scanf("%d", &altura);
     system("cls");
 
-    for(i = 0; i <= altura; i++){
+    for(i = 1; i <= altura; i++){
         for(j = 0; j <= altura - i; j++){
             printf(" ");
         }
@@ -287,6 +287,105 @@ int rombo(){
     }
 }
 
+int romboVacio(){
+
+    /**
+      *
+      * Hacer un rombo sin rellenar indicando la altura
+      *
+      **/
+
+    int altura = 30;
+    int i, j, h;
+
+    printf("Dime una altura\n");
+    scanf("%d", &altura);
+    system("cls");
+
+    for(i = 1; i <= altura; i++){
+
+        for(j = 0; j <= altura - i; j++){
+            printf(" ");
+        }
+        printf("*");
+        for(j = 1; j <= ((i*2)-1)-2; j++){
+            printf(" ");
+        }
+
+        if(i > 1){
+            printf("*");
+        }
+
+        printf("\n");
+    }
+
+    for(i = altura - 1 ; i >= 1; i--){
+        for(j = 0; j <= altura - i; j++){
+            printf(" ");
+        }
+        printf("*");
+        for(j = 0; j <= ((i*2)-2)-2 ; j++){
+            printf(" ");
+        }
+        if(i > 1){
+            printf("*");
+        }
+        printf("\n");
+    }
+
+}
+
+int romboLineasInteriores(){
+
+    /**
+      *
+      * Hacer un rombo con las lineas interiores indicando la altura
+      *
+      **/
+
+    int altura = 30;
+    int i, j, h;
+
+    printf("Dime una altura\n");
+    scanf("%d", &altura);
+    system("cls");
+
+    for(i = 1; i <= altura; i++){
+
+        for(j = 0; j <= altura - i; j++){
+            if(j != altura){
+                printf(" ");
+            }else{
+                printf("*");
+            }
+        }
+        printf("*");
+        for(j = 1; j <= ((i*2)-1)-2; j++){
+            printf(" ");
+        }
+
+        if(i > 1){
+            printf("*");
+        }
+
+        printf("\n");
+    }
+
+    for(i = altura - 1 ; i >= 1; i--){
+        for(j = 0; j <= altura - i; j++){
+            printf(" ");
+        }
+        printf("*");
+        for(j = 0; j <= ((i*2)-2)-2 ; j++){
+            printf(" ");
+        }
+        if(i > 1){
+            printf("*");
+        }
+        printf("\n");
+    }
+
+}
 
 int main(){
 

@@ -7,9 +7,7 @@
 int random(){
 
     int nRandom;
-
     srand (time(NULL));
-
     nRandom = (rand()% 9999);
 
     return nRandom;
@@ -54,6 +52,29 @@ int main() {
 
 
     do{
+
+
+            system("cls");
+
+            logo();
+
+            if(debug){
+                printf("           * DEBUG MODE ON *          \n");
+                printf("            ----- %d -----            \n", nAzarCompleto);
+                printf("           * DEBUG MODE ON *          \n\n");
+            }
+
+            printf("--------------------------------------\n");
+            printf("Intentos: %d \n", intentos);
+            printf("Aciertos: %d \n", aciertos);
+            printf("Posiciones: %d \n", posiciones);
+            printf("--------------------------------------\n");
+
+            posiciones = 0;
+            aciertos = 0;
+
+
+
             printf("Introduce un numero\n");
             scanf("%d", &numeroUsu);
 
@@ -98,36 +119,22 @@ int main() {
                 ganaPersona = true;
             }
 
-            system("cls");
 
-            logo();
-
-            if(debug){
-                printf("* DEBUG MODE ON *\n");
-                printf("----- %d -----\n", nAzarCompleto);
-                printf("* DEBUG MODE ON *\n\n");
-            }
-            printf("--------------------------------------\n");
-            printf("Intentos: %d \n", intentos);
-            printf("Aciertos: %d \n", aciertos);
-            printf("Posiciones: %d \n", posiciones);
-            printf("--------------------------------------\n");
-
-            posiciones = 0;
-            aciertos = 0;
 
     }while(intentos >= 0 && !ganaPersona);
 
     if(ganaPersona){
         system("cls");
         logo();
-        printf("----------------------------------\n");
-        printf("----- HAS GANADO LA PARTIDA! -----\n");
-        printf("----------------------------------\n");
+        system("COLOR 0A");
+        printf("\n--------------------------------------\n");
+        printf("------- HAS GANADO LA PARTIDA! -------\n");
+        printf("--------------------------------------\n");
     }else{
         system("cls");
         logo();
-        printf("--------------------------------------\n");
+        system("COLOR 0C");
+        printf("\n--------------------------------------\n");
         printf("----- HAS PERDIDO LA PARTIDA! :( -----\n");
         printf("--------------------------------------\n");
     }
