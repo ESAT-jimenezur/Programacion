@@ -110,8 +110,8 @@ int main() {
                     if(i == 3)
                         posiciones++;
                 }
-
             }
+
 
             intentos--;
 

@@ -387,8 +387,104 @@ int romboLineasInteriores(){
 
 }
 
+int capicua(){
+
+    /**
+     *  Obligar al usuario a escribir un numero,
+     *  de 4 digitos y comprobar si es capicua
+     *
+     */
+
+    int numeroUsu, numeroUsu0, numeroUsu1, numeroUsu2, numeroUsu3;
+
+        do{
+            printf("Introduce un numero de 4 digitos\n");
+            scanf("%d", &numeroUsu);
+        }while(numeroUsu < 999 || numeroUsu >= 9999);
+
+
+
+        numeroUsu3 = numeroUsu % 10;
+        numeroUsu = numeroUsu / 10;
+
+        numeroUsu2 = numeroUsu % 10;
+        numeroUsu = numeroUsu / 10;
+
+        numeroUsu1 = numeroUsu % 10;
+        numeroUsu = numeroUsu / 10;
+
+        numeroUsu0 = numeroUsu % 10;
+
+    if(numeroUsu0 == numeroUsu3 && numeroUsu1 == numeroUsu2){
+        system("cls");
+        system("COLOR 0A");
+        printf("ES CAPICUA! :)\n");
+    }else{
+        system("cls");
+        system("COLOR 0C");
+        printf("NO ES CAPICUA!\n");
+    }
+
+}
+
+
+int limiteYCapicua(){
+
+    /**
+      *
+      * Pedir un limite al usuario y mostrar por pantalla la cantidad de capicuas desde 1000 hasta el limite
+      *
+    **/
+
+
+    int limite = 1000;
+    int nActual, nAct1, nAct2, nAct3, nAct4;
+    int totales = 0;
+
+    do{
+        printf("Introduce un limite (4 digitos)\n");
+        scanf("%d", &limite);
+    }while(limite < 999 || limite > 9999);
+
+    system("cls");
+
+    printf("-----------------------------------------------\n");
+    printf("Limite: %d\n", limite);
+    printf("-----------------------------------------------\n");
+
+    for(int i = 1000; i <= limite; i++){
+
+        nActual = i;
+
+        nAct4 = nActual % 10;
+        nActual = nActual / 10;
+
+        nAct3 = nActual % 10;
+        nActual = nActual / 10;
+
+        nAct2 = nActual % 10;
+        nActual = nActual / 10;
+
+        nAct1 = nActual % 10;
+
+
+        if(nAct4 == nAct1 && nAct2 == nAct3){
+            printf("    %d", i);
+            totales++;
+            if(totales % 5 == 0){
+                printf("\n");
+            }
+        }
+    }
+
+    printf("\n-----------------------------------------------\n");
+    printf("Capicuas: %d\n", totales);
+    printf("-----------------------------------------------\n");
+}
+
+
 int main(){
 
-
+    limiteYCapicua();
 
 }
