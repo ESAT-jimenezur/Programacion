@@ -436,7 +436,6 @@ int limiteYCapicua(){
       *
     **/
 
-
     int limite = 1000;
     int nActual, nAct1, nAct2, nAct3, nAct4;
     int totales = 0;
@@ -453,7 +452,6 @@ int limiteYCapicua(){
     printf("-----------------------------------------------\n");
 
     for(int i = 1000; i <= limite; i++){
-
         nActual = i;
 
         nAct4 = nActual % 10;
