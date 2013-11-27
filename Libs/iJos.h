@@ -59,7 +59,11 @@ float potencia(float a, float b){
 
 
 /**--------------------------------
-/**         U T I L S           **/
+/**         U T I L S
+
+    require:    <stdlib.h>
+                <time.h>
+                                **/
 /**--------------------------------
 
 /**       Create Seed            **/
@@ -86,4 +90,19 @@ int aleatorio(int a){
 
 
 
+/**--------------------------------
+/**         S C R E E N
 
+    require:    <window.h>
+--------------------------------**/
+void colorTexto(int texto, int fondo){
+    int color;
+
+    color = (texto * 16) + fondo;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE));
+}
+
+void cursorPos(int x, int y){
+    COORD coor = [x, y];
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE));
+}
