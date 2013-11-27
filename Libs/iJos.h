@@ -4,7 +4,7 @@
 
 
 
-/**       Funcion Sumar      **/
+/**       Funcion Sumar         **/
 /**--------------------------------
     @Params float a;
             float b;
@@ -15,7 +15,7 @@ float sumar(float a, float b){
 }
 
 
-/**       Funcion Restar      **/
+/**       Funcion Restar         **/
 /**--------------------------------
     @Params float a;
             float b;
@@ -53,6 +53,37 @@ float potencia(float a, float b){
         return a * potencia(a, b-1);
     }
 }
+
+
+
+
+
+/**--------------------------------
+/**         U T I L S           **/
+/**--------------------------------
+
+/**       Create Seed            **/
+/**------------------------------*/
+void seed(){
+    srand (time(NULL));
+}
+
+
+/**       Funcion aleatorio      **/
+/**--------------------------------
+    @return int a
+----------------------------------*/
+
+int aleatorio(int a){
+
+    int b;
+    b = (rand()% a);
+    return b;
+
+}
+
+
+
 
 
 
