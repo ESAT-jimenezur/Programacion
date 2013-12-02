@@ -2,6 +2,9 @@
 /*        iJos Public Lib         */
 /*--------------------------------*/
 
+#include <time.h>
+#include <windows.h>
+
 
 
 /**       Funcion Sumar         **/
@@ -93,16 +96,16 @@ int aleatorio(int a){
 /**--------------------------------
 /**         S C R E E N
 
-    require:    <window.h>
+    require:    <windows.h>
 --------------------------------**/
 void colorTexto(int texto, int fondo){
     int color;
 
     color = (texto * 16) + fondo;
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE));
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
 void cursorPos(int x, int y){
-    COORD coor = [x, y];
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE));
+    COORD coor = {x, y};
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coor);
 }
