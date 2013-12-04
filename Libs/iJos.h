@@ -109,3 +109,23 @@ void cursorPos(int x, int y){
     COORD coor = {x, y};
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coor);
 }
+
+void ventana(int x, int y, int ancho, int alto, bool relieve){
+
+    int i,j;
+cursorPos(x,y);printf("%c",218);for(i=1;i<ancho-1;i++) printf("%c",196);printf("%c",191);
+for(i=1;i<alto;i++)
+{cursorPos(x,y+i);printf("%c",179);cursorPos(x+ancho-1,y+i);printf("%c",179);}
+ cursorPos(x,y+alto);printf("%c",192);for(i=1;i<ancho-1;i++) printf("%c",196);printf("%c",217);
+
+}
+
+void parrilla(int x, int y, int filas, int columnas, int ancho, int alto, int espacioF, int espacioC){
+    int i,j;
+
+    for(i=0; i < filas; i++){
+        for(j=0; j < columnas; j++){
+            ventana(x+j*(ancho+espacioC), y+i*(alto+espacioF), ancho, alto, false);
+        }
+    }
+}
