@@ -8,38 +8,16 @@
 
 using namespace std;
 
-void setColors(int texto, int fondo){
-
-    colorTexto(texto, fondo);
-
-}
-
-void ponerFicha(int turno){
-    int posicion;
-    if(turno == -1){// Turno PC
-        printf("Turno del ORDENADOR \n");
-        scanf("%d", &posicion);
-         while (posicion < 1|| posicion > 9){
-
-         };
-         posicion--;
-         printf("_______________________________\n");
-         //AjustaTurno(casilla);
-    }else{
-
-    }
-
-}
-
-void juego(){
 
     bool partidaActiva = true;
-    bool debug = true;
+    bool debug = false;
     int jugador = 2;
     int ordenador = 10;
-    int turno = -1; // Turno 0 = ordenador, 1 = persona
+    int turno = -1; // Turno -1 = ordenador, 1 = persona
     int fichasOrdenador = 3;
     int fichasPersona = 3;
+    int ale;
+
 
     int tablero[4][4] = {       // Array  tablero (Ultima fila y columna solo son para debuguear)
                             0,0,0,0,
@@ -54,61 +32,128 @@ void juego(){
                             4, 5, 6,
                             1, 2, 3
                         };
-    int ale;
+
+
+
+void setColors(int texto, int fondo){
+
+    colorTexto(texto, fondo);
+
+}
+
+void ponerFicha(int casilla, int turno){
+    int fichas;
+    int posAux;
+    if(fichasOrdenador > 0 && fichasPersona > 0){
+        if(turno == -1){
+            fichas = ordenador;
+            fichasOrdenador--;
+        }else{
+            fichas = jugador;
+            fichasPersona--;
+        }
+
+        if(casilla == 1 && tablero[1][1] == 0)tablero[1][1] = fichas;
+        if(casilla == 2 && tablero[1][2] == 0)tablero[1][2] = fichas;
+        if(casilla == 3 && tablero[1][3] == 0)tablero[1][3] = fichas;
+
+        if(casilla == 4 && tablero[2][1] == 0)tablero[2][1] = fichas;
+        if(casilla == 5 && tablero[2][2] == 0)tablero[2][2] = fichas;
+        if(casilla == 6 && tablero[2][3] == 0)tablero[2][3] = fichas;
+
+        if(casilla == 7 && tablero[3][1] == 0)tablero[3][1] = fichas;
+        if(casilla == 8 && tablero[3][2] == 0)tablero[3][2] = fichas;
+        if(casilla == 9 && tablero[3][3] == 0)tablero[3][3] = fichas;
+
+    }else{ // Retirar ficha
+        printf("Elige una ficha para mover.\n");
+    }
+
+}
+
+void pideFicha(int turno){
+    int casilla;
+    //Escaneamos el valor introducdo por teclado
+    scanf("%d", &casilla);
+    if (casilla > 1 || casilla < 9){
+        ponerFicha(casilla, turno);
+    };
+}
+
+void compruebaTurno(int turno){
+    printf("---------------\n");
+    if(turno == -1){ // Turno  == -1 -> Ordenador
+        printf("Turno del ORDENADOR. Introduce una casilla\n");
+    }else{ // Turno  == 1 -> Persona
+        printf("Turno del JUGADOR. Introduce una casilla\n");
+    }
+}
+
+void imprimeTablero(){
+    //Recorremos array y mostramos
+    for(int i = 1; i <= 3; i++){
+        for(int j = 1; j <= 3; j++){
+            printf(" %.2d  ", tablero[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void imprimeTableroDebug(){
+    // Muestra el debug (Si está activo)
+    if(debug){
+        printf("\n\n\n");
+        //Recorremos array y mostramos
+        for(int i = 1; i <= 4; i++){
+
+            for(int j = 1; j <= 4; j++){
+
+            }
+            printf("\n");
+
+        }
+    }
+}
+
+
+void compruebaJugada(){
+    if( tablero[1][1] + tablero[1][2] + tablero[1][3] == 30 || tablero[2][1] + tablero[2][2] + tablero[2][3] == 30 || tablero[3][1] + tablero[3][2] + tablero[3][3] == 30){
+        printf("Gana ordenador\n");
+        //partidaActiva = false;
+    }else{
+        printf("Gana persona\n");
+        //partidaActiva = false;
+    }
+}
+
+void juego(){
+
 
     // Establecemos el color de la consola
     setColors(0, 14);
 
     do{
+        printf("%d\n\n", turno);
+       //resets();
+
+        //Muestra / Actualiza el tablero en pantalla
+        imprimeTablero();
+
+        //Solo si el modo debug está activo
+        imprimeTableroDebug();
 
 
-
-        //Recorremos array y mostramos
-        for(int i = 1; i <= 3; i++){
-
-            for(int j = 1; j <= 3; j++){
-                printf(" %d  ", tablero[i][j]);
-            }
-            printf("\n");
-
-        }
+        compruebaTurno(turno);
+        pideFicha(turno);
 
 
-        // Muestra el debug (Si está activo)
-        if(debug){
+        //Ajustamos turno
+        turno = turno * (-1);
 
-            printf("\n\n\n");
-            //Recorremos array y mostramos
-            for(int i = 1; i <= 4; i++){
-
-                for(int j = 1; j <= 4; j++){
-
-                }
-                printf("\n");
-
-            }
-        }
-
-        ponerFicha(turno);
+        compruebaJugada();
 
 
-        printf("---------------\n");
-        if(turno == 0){ // Turno  == 0 -> Ordenador
-            printf("Turno del ordenador");
-        }else{ // Turno  == 1 -> Persona
-            printf("Turno del jugador");
-        }
-
-
-        //                 COMBPROBAMOS SUMA HORIZONTAL         ||          COMPROBAMOS SUMA VERTICAL                  ||           COMPROBAMOS SUMA VERTICAL
-        if( tablero[0][0] + tablero[0][1] + tablero[0][2] == 30 || tablero[0][0] + tablero[1][0] + tablero[2][0] == 30 || tablero[0][0] + tablero[1][1] + tablero[2][2] == 30){
-            printf("Gana ordenador");
-            partidaActiva = false;
-        }else{
-            printf("Gana persona");
-            partidaActiva = false;
-        }
-
+        system("cls");
 
     }while(partidaActiva);
 
@@ -116,9 +161,7 @@ void juego(){
 }
 
 int main(){
-
-    //juego();
-
+    juego();
 }
 
 
