@@ -41,6 +41,34 @@ void setColors(int texto, int fondo){
 
 }
 
+void pintaX(int posX, int posY){
+
+    cursorPos(posX, posY);
+
+    int x[5][5] = {
+                        1,0,0,0,1,
+                        0,1,0,1,0,
+                        0,0,1,0,0,
+                        0,1,0,1,0,
+                        1,0,0,0,1
+    };
+    printf(" ");
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(x[i][j] == 1){
+                printf("%c", 254);
+            }else{
+                printf(" ");
+            }
+        }
+        if(i == 0){
+            posX++;
+        }
+        posY++;
+        cursorPos(posX, posY);
+    }
+}
+
 void ponerFicha(int casilla, int turno){
     int fichas;
     int posAux;
@@ -81,7 +109,7 @@ void pideFicha(int turno){
 }
 
 void compruebaTurno(int turno){
-    printf("---------------\n");
+    cursorPos(1, 21);
     if(turno == -1){ // Turno  == -1 -> Ordenador
         printf("Turno del ORDENADOR. Introduce una casilla\n");
     }else{ // Turno  == 1 -> Persona
@@ -91,12 +119,18 @@ void compruebaTurno(int turno){
 
 void imprimeTablero(){
     //Recorremos array y mostramos
+    /*
     for(int i = 1; i <= 3; i++){
         for(int j = 1; j <= 3; j++){
             printf(" %.2d  ", tablero[i][j]);
         }
         printf("\n");
-    }
+    }*/
+    parrilla(0, 0, 3, 3, 10, 6, 1, 1);
+
+    pintaX(1, 1);
+
+    printf("\n");
 }
 
 void imprimeTableroDebug(){
