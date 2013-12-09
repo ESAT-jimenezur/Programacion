@@ -117,13 +117,17 @@ void imprimeTableroDebug(){
 
 
 void compruebaJugada(){
-    if( tablero[1][1] + tablero[1][2] + tablero[1][3] == 30 || tablero[2][1] + tablero[2][2] + tablero[2][3] == 30 || tablero[3][1] + tablero[3][2] + tablero[3][3] == 30){
-        printf("Gana ordenador\n");
-        //partidaActiva = false;
-    }else{
-        printf("Gana persona\n");
-        //partidaActiva = false;
+
+    int fila_1 = tablero[1][1] + tablero[1][2] + tablero[1][3];
+    int fila_2 = tablero[2][1] + tablero[2][2] + tablero[2][3];
+    int fila_3 = tablero[3][1] + tablero[3][2] + tablero[3][3];
+
+    if(fila_1 == 30 || fila_1 == 6 || fila_2 == 30 || fila_2 == 6 || fila_3 == 30 || fila_3 == 6){
+        partidaActiva = false;
     }
+
+    // TODO
+
 }
 
 void juego(){
