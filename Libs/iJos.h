@@ -58,6 +58,52 @@ float potencia(float a, float b){
 }
 
 
+/**    Llenar matriz aleatoria   */
+/**--------------------------------
+    @Params int matriz[x][y];
+----------------------------------*/
+void llenarMatrizAleatoria(int matriz[x][y]){
+    int nAle = 0;
+    for(int i = 0; i < x; i++){
+        for(int j = 0; j < y; j++){
+            nAle = aleatorio(100);
+            matriz[i][j] = nAle;
+        }
+    }
+}
+
+/**        Imprimir Matriz       */
+/**--------------------------------
+    @Params int matriz[x][y];
+----------------------------------*/
+
+void imprimirMatriz(int matriz[x][y]){
+    for(int i = 0; i < x; i++){
+        for(int j = 0; j < y; j++){
+            printf("%.3d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+    printf("---------------------------------------\n");
+}
+
+
+
+/**        Sumar Matrices        */
+/**--------------------------------
+    @Params int matriz_A[x][y];
+            int matriz_B[x][y];
+            int suma[x][y];
+----------------------------------*/
+void sumarMatrices(int matriz_A[x][y], int matriz_B[x][y], int suma[x][y]){
+    for(int i = 0; i < x; i++){
+        for(int j = 0; j < y; j++){
+            suma[i][j] =  matriz_A[i][j] + matriz_B[i][j];
+        }
+    }
+}
+
+
 
 
 
