@@ -26,7 +26,6 @@ void imprimirMatriz(int matriz[x][y]){
 }
 
 void sumarMatrices(int matriz_A[x][y], int matriz_B[x][y], int suma[x][y]){
-
     for(int i = 0; i < x; i++){
         for(int j = 0; j < y; j++){
             suma[i][j] =  matriz_A[i][j] + matriz_B[i][j];
@@ -49,8 +48,5 @@ int main(){
     imprimirMatriz(matriz_B);
 
     sumarMatrices(matriz_A, matriz_B, suma);
-
     imprimirMatriz(suma);
-
-
 }
