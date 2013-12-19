@@ -4,6 +4,7 @@
 
 #include <time.h>
 #include <windows.h>
+#include <locale.h>
 
 
 
@@ -177,4 +178,12 @@ void parrilla(int x, int y, int filas, int columnas, int ancho, int alto, int es
             ventana(x+j*(ancho+espacioC), y+i*(alto+espacioF), ancho, alto, false);
         }
     }
+}
+
+
+void ventanaConsola(int columnas, int lineas, char *Titulo){
+    char linea[250]="",temp[]="";
+    strcpy(linea,"title ");strcat(linea,Titulo);system(linea);
+    strcpy(linea,"MODE CON cols=");itoa(columnas,temp,10);strcat(linea,temp);itoa(lineas,temp,10);strcat(linea," lines=");strcat(linea,temp);
+    system(linea);
 }
