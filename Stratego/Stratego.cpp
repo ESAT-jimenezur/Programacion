@@ -61,6 +61,12 @@ void setColors(int texto, int fondo){
 void pintaParrilla(){
     setColors(0, 14);
     parrilla(0, 0, 10, 10, 10, 6, 1, 1);
+
+    setColors(0, 3);
+
+    //Pintamos primera casilla a la que no accedemos
+    ventana(22, 28, 10, 6, 0);
+
 }
 
 void movimientoCursor(){
