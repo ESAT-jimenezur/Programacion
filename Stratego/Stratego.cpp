@@ -6,10 +6,53 @@
 
 #include <iJos.h>
 
+bool debug = true;
+
 
 int cursorX = 0;
 int cursorY = 0;
 
+int posActualX = 0;
+int posActualY = 0;
+
+int tablero[10][10] = {
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0
+};
+
+void juego();
+
+void menu(){
+
+    printf("***** Seleccionar Jugada *****\n");
+    printf("1.- Defensiva\n");
+    printf("2.- Agresiva\n");
+    printf("3.- Colocar las fichas\n");
+
+    int c;
+    scanf("%d", &c);
+
+    switch (c){
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+            juego();
+            break;
+    }
+
+}
 
 void setColors(int texto, int fondo){
     colorTexto(texto, fondo);
@@ -20,7 +63,10 @@ void pintaParrilla(){
     parrilla(0, 0, 10, 10, 10, 6, 1, 1);
 }
 
-void cursorSelector(){
+void movimientoCursor(){
+
+    //Vaciamos el buffer;
+    fflush(stdin);
 
     char c;
     c = getch();
@@ -41,6 +87,7 @@ void cursorSelector(){
                 pintaParrilla();
                 setColors(0, 13);
 
+                posActualY --;
                 cursorY -= 7;
                 ventana(cursorX, cursorY, 10, 6, 0);
             }else{
@@ -56,6 +103,7 @@ void cursorSelector(){
                 pintaParrilla();
                 setColors(0, 13);
 
+                posActualY ++;
                 cursorY += 7;
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
@@ -67,6 +115,7 @@ void cursorSelector(){
                 pintaParrilla();
                 setColors(0, 13);
 
+                posActualX ++;
                 cursorX += 11;
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
@@ -78,9 +127,16 @@ void cursorSelector(){
                 pintaParrilla();
                 setColors(0, 13);
 
+                posActualX --;
                 cursorX -= 11;
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
+            break;
+        case 13:
+                pintaParrilla();
+                setColors(0, 15);
+
+                ventana(cursorX, cursorY, 10, 6, 0);
             break;
     }
 
@@ -88,34 +144,24 @@ void cursorSelector(){
 
 }
 
+void modoDebug(){
 
+    if(debug){
+        setColors(0, 15);
+        cursorPos(115, 0);
+        printf("Posicion %d - %d  \n", posActualX, posActualY);
+    }
+}
 
 void juego(){
 
-    while(true){
 
-
-
-
-
-        cursorSelector();
-
-
-    }
-
-
-}
-
-
-int main(){
-    // Pantalla default
-    ventanaConsola(155,73, "Stratego");
+    ventanaConsola(155,73, "iJoStratego");
     pintaParrilla();
 
     // Marcamos la primera casilla
     setColors(0, 13);
     ventana(0, 0, 10, 6, 1);
-
 
     setColors(0,14);
 
@@ -126,6 +172,27 @@ int main(){
        }
     }
 
-    juego();
+
+
+    do{
+
+        modoDebug();
+        // Este metodo controla el movimiento del cursor
+        movimientoCursor();
+
+
+
+
+
+    }while(true);
+
+
+}
+
+
+int main(){
+
+    menu();
+
 }
 
