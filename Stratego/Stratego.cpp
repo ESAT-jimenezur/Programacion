@@ -66,6 +66,19 @@ void pintaParrilla(){
 
     //Pintamos primera casilla a la que no accedemos
     ventana(22, 28, 10, 6, 0);
+    //2a casilla
+    ventana(33, 28, 10, 6, 0);
+    //Debajo de ambas
+    ventana(22, 35, 10, 6, 0);
+    ventana(33, 35, 10, 6, 0);
+
+    //Pintamos las otras 4 casillas de la derecha
+    //Arriba
+    ventana(66, 28, 10, 6, 0);
+    ventana(77, 28, 10, 6, 0);
+    //Abajo
+    ventana(66, 35, 10, 6, 0);
+    ventana(77, 35, 10, 6, 0);
 
 }
 
@@ -198,7 +211,10 @@ void juego(){
 
 int main(){
 
-    menu();
+    //De momento llamamos al juego y no al menu.
+
+    juego();
+    //menu();
 
 }
 
