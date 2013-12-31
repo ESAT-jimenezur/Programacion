@@ -28,6 +28,8 @@ int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0
 };
 
+int fichasJugador[10][4];
+
 void juego();
 
 void menu(){
@@ -58,7 +60,25 @@ void setColors(int texto, int fondo){
     colorTexto(texto, fondo);
 }
 
+void setFichas(int jugada){
+
+    if(jugada == 1){
+       int fichasJugador[10][4] = {
+            2,7,3,2,6,5,7,2,8,99, //99 = Bomba
+            10,6,99,3,8,6,3,3,99,4,
+            1,99,100,99,39,5,2,4,6, //100 = Bandera
+            7,4,99,4,2,2,5,2,5,2
+        };
+         setColors(0, 15);
+         cursorPos(115, 1);
+         printf("Estrategia Defensiva");
+    }
+
+}
+
 void pintaParrilla(){
+    int x = 0;
+    int y = 42;
     setColors(0, 14);
     parrilla(0, 0, 10, 10, 10, 6, 1, 1);
 
@@ -79,6 +99,19 @@ void pintaParrilla(){
     //Abajo
     ventana(66, 35, 10, 6, 0);
     ventana(77, 35, 10, 6, 0);
+
+    cursorPos(x+4, y+3);
+    setColors(0, 15);
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 10; j++){
+            printf("%d ", fichasJugador[i][j]);
+            x += 11;
+            cursorPos(x+4, y+3);
+        }
+        x = 0;
+        y += 7;
+        cursorPos(x+4, y+3);
+    }
 
 }
 
@@ -173,10 +206,15 @@ void modoDebug(){
 }
 
 void juego(){
-
-
     ventanaConsola(155,73, "iJoStratego");
+
+    //Iniciamos la jugada defensiva
+    setFichas(1);
+
+
     pintaParrilla();
+
+
 
     // Marcamos la primera casilla
     setColors(0, 13);
