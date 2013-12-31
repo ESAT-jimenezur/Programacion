@@ -28,7 +28,14 @@ int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0
 };
 
-int fichasJugador[10][4];
+
+int fichasJugador[10][4] = {
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0
+};
+
 
 void juego();
 
@@ -104,7 +111,7 @@ void pintaParrilla(){
     setColors(0, 15);
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 10; j++){
-            printf("%d ", fichasJugador[i][j]);
+            printf("%d", fichasJugador[i][j]);
             x += 11;
             cursorPos(x+4, y+3);
         }
