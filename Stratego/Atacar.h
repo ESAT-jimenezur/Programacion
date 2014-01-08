@@ -18,6 +18,7 @@ int atacar(int atacante, int receptor){
 
     /** TODO
         - Comprobar que los valores sean correctos
+        - Comprobar el caso de partida ganada
     **/
 
     if(atacante == 1 && receptor == 12){ // En este caso, el atacante, usando el espia ha atacado al mariscal.
@@ -25,6 +26,10 @@ int atacar(int atacante, int receptor){
     }
 
 
+    if(receptor == 100){ // Si el atacante toca la bandera
+        ganador = 1;
+        partidaGanada = true;
+    }
 
 
     return ganador;
