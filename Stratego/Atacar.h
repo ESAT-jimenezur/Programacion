@@ -31,6 +31,13 @@ int atacar(int atacante, int receptor){
         partidaGanada = true;
     }
 
+    if(receptor == 99){ // 99 Es la bomba
+        if(atacante == 3){ // Tenemos un minero desactivador de bombas!
+            ganador = 1; // Bomba desactivada!
+        }else{
+            ganador = 0; // Te has chocado con la bomba, amigo!
+        }
+    }
 
     return ganador;
 }
