@@ -14,7 +14,7 @@
 **********************************/
 
 #include <Utils.h>
-
+#include <Jugadas.h>
 
 
 
@@ -45,15 +45,11 @@ int tablero[10][10] = {
 };
 
 
-int fichasJugador[10][4] = {
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0
-};
+int fichasJugador[10][4];
 
 
 void juego();
+
 
 void menu(){
 
@@ -83,15 +79,10 @@ void setColors(int texto, int fondo){
     colorTexto(texto, fondo);
 }
 
-void setFichas(int jugada){
+void setFichas(int tipoJugada){
 
-    if(jugada == 1){
-       int fichasJugador[10][4] = {
-            2,7,3,2,6,5,7,2,8,99, //99 = Bomba
-            10,6,99,3,8,6,3,3,99,4,
-            1,99,100,99,39,5,2,4,6, //100 = Bandera
-            7,4,99,4,2,2,5,2,5,2
-        };
+    if(tipoJugada == 1){
+         asignaArray(fichasJugador, j_Defensiva);
          setColors(0, 15);
          cursorPos(115, 1);
          printf("Estrategia Defensiva");
@@ -125,9 +116,13 @@ void pintaParrilla(){
 
     cursorPos(x+4, y+3);
     setColors(0, 15);
+
+    // Pint por pantalla las fichas
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 10; j++){
-            printf("%d", fichasJugador[i][j]);
+            //TODO
+            //printf("%d %c", fichasJugador[i][j], nombreFicha(fichasJugador[i][j]));
+            printf("%d ", fichasJugador[i][j]);
             x += 11;
             cursorPos(x+4, y+3);
         }

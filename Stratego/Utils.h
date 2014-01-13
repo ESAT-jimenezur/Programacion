@@ -19,13 +19,21 @@ void error(int e){
     @return string nombre
 **************************************************/
 
-void nombreFicha(int ficha){
-
+char *nombreFicha(int ficha){
     switch (ficha){
-
+        case 2:
+            return "TEST";
+            break;
     }
+}
 
 
+void asignaArray(int array_A[10][4], int array_B[10][4]){
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 10; j++){
+            array_A[i][j] = array_B[i][j];
+        }
+    }
 }
 
 
