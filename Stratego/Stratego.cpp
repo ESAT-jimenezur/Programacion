@@ -6,6 +6,22 @@
 
 #include <iJos.h>
 
+
+
+/**********************************
+** Declaraciones de librerias    **
+** con funcionalidades del juego **
+**********************************/
+
+#include <Utils.h>
+
+
+
+
+/***********************
+** Variables Globales **
+************************/
+
 bool debug = true;
 
 

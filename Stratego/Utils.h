@@ -1,13 +1,39 @@
 
+/**************************************************
+    Metodo que devuelve un error, según su codigo
+    @get int e
+    @return string error
+**************************************************/
+void error(int e){
+
+}
+
+
+/**************************************************
+    Metodo que devuelve el nombre de una ficha,
+    segun su numero
+    @get int ficha
+    @return string nombre
+**************************************************/
+
+void nombreFicha(int ficha){
+
+    switch (ficha){
+
+    }
+
+
+}
+
 
 /**************************************
  ** Este metodo es utilizado por las **
  ** fichas para atacar a otras       **
  **                                  **
- ** GET                              **
+ ** @get                             **
  ** int atacante (El tipo de ficha)  **
  ** int receptor (El tipo de ficha)  **
- ** RETURN                           **
+ ** @return                          **
  ** int ganador (La ficha que gana)  **
 **************************************/
 
@@ -41,3 +67,4 @@ int atacar(int atacante, int receptor){
 
     return ganador;
 }
+
