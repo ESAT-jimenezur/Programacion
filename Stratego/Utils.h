@@ -29,9 +29,9 @@ char *nombreFicha(int ficha){
 
 
 void asignaArray(int array_A[10][4], int array_B[10][4]){
-    for(int i = 0; i < 4; i++){
-        for(int j = 0; j < 10; j++){
-            array_A[i][j] = array_B[i][j];
+    for(int y = 0; y < 4; y++){
+        for(int x = 0; x < 10; x++){
+            array_A[x][y] = array_B[x][y];
         }
     }
 }

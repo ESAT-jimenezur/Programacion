@@ -24,12 +24,16 @@
 
 bool debug = true;
 
+int posInicialCursorX = 0;
+int posInicialCursorY = 42;
 
-int cursorX = 0;
-int cursorY = 0;
+int cursorX = posInicialCursorX;
+int cursorY = posInicialCursorY;
 
 int posActualX = 0;
 int posActualY = 0;
+
+int fichaSeleccionada = false;
 
 int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0,
@@ -46,7 +50,7 @@ int tablero[10][10] = {
 
 
 int fichasJugador[10][4];
-
+int fichasPC[10][4];
 
 void juego();
 
@@ -90,14 +94,19 @@ void setFichas(int tipoJugada){
 
 }
 
-void pintaParrilla(){
-    int x = 0;
-    int y = 42;
-    setColors(0, 14);
-    parrilla(0, 0, 10, 10, 10, 6, 1, 1);
+void setFichasPC(){
 
+
+     asignaArray(fichasPC, j_Defensiva);
+     setColors(0, 15);
+     cursorPos(115, 1);
+     printf("Estrategia Defensiva");
+
+
+}
+
+void pintaCasillasInaccesibles(){
     setColors(0, 3);
-
     //Pintamos primera casilla a la que no accedemos
     ventana(22, 28, 10, 6, 0);
     //2a casilla
@@ -114,14 +123,30 @@ void pintaParrilla(){
     ventana(66, 35, 10, 6, 0);
     ventana(77, 35, 10, 6, 0);
 
+
+}
+
+void pintaParrilla(){
+
+    int xIni = 0;
+    int yIni = 0;
+
+
+    int x = 0;
+    int y = 42;
+
+    setColors(0, 14);
+    parrilla(0, 0, 10, 10, 10, 6, 1, 1);
+
+    pintaCasillasInaccesibles();
+
+    //Reset de posicion
     cursorPos(x+4, y+3);
     setColors(0, 15);
 
-    // Pint por pantalla las fichas
+    // Pinta por pantalla las fichas del jugador
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 10; j++){
-            //TODO
-            //printf("%d %c", fichasJugador[i][j], nombreFicha(fichasJugador[i][j]));
             printf("%d ", fichasJugador[i][j]);
             x += 11;
             cursorPos(x+4, y+3);
@@ -130,6 +155,69 @@ void pintaParrilla(){
         y += 7;
         cursorPos(x+4, y+3);
     }
+
+    //Reset de posicion
+    cursorPos(xIni+4, yIni+3);
+
+
+
+    //Pintamos por pantalla las fichas del PC
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 10; j++){
+            printf("%d ", fichasPC[i][j]);
+            xIni += 11;
+            cursorPos(xIni+4, yIni+3);
+        }
+        xIni = 0;
+        yIni += 7;
+        cursorPos(xIni+4, yIni+3);
+    }
+}
+
+void pintaNombreFicha(int id_Ficha){
+    cursorPos(115, 5);
+
+    // Limpio de forma cutrilla la linea, para que no se solapen los nombres
+    printf("                     ");
+    switch (id_Ficha){
+        case 1:
+            printf("Mariscal");
+            break;
+        case 2:
+            printf("General");
+            break;
+        case 3:
+            printf("Coronel");
+            break;
+        case 4:
+            printf("Comandante");
+            break;
+        case 5:
+            printf("Capitan");
+            break;
+        case 6:
+            printf("Teniente");
+            break;
+        case 7:
+            printf("Sargento");
+            break;
+        case 8:
+            printf("Minero");
+            break;
+        case 9:
+            printf("Explorador");
+            break;
+        case 10:
+            printf("Espia");
+            break;
+        case 99:
+            printf("Bomba");
+            break;
+        case 100:
+            printf("Bandera");
+            break;
+    }
+
 
 }
 
@@ -145,6 +233,8 @@ void movimientoCursor(){
         c = getch();
     }
 
+
+
     switch (c){
         /**
             REVISAR QUE NO SE SALGA DE PANTALLA
@@ -157,7 +247,7 @@ void movimientoCursor(){
                 pintaParrilla();
                 setColors(0, 13);
 
-                posActualY --;
+                posActualX --;
                 cursorY -= 7;
                 ventana(cursorX, cursorY, 10, 6, 0);
             }else{
@@ -173,7 +263,7 @@ void movimientoCursor(){
                 pintaParrilla();
                 setColors(0, 13);
 
-                posActualY ++;
+                posActualX ++;
                 cursorY += 7;
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
@@ -185,7 +275,7 @@ void movimientoCursor(){
                 pintaParrilla();
                 setColors(0, 13);
 
-                posActualX ++;
+                posActualY ++;
                 cursorX += 11;
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
@@ -197,16 +287,27 @@ void movimientoCursor(){
                 pintaParrilla();
                 setColors(0, 13);
 
-                posActualX --;
+                posActualY --;
                 cursorX -= 11;
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
-        case 13:
+        case 13: // Pulsamos ENTER
                 pintaParrilla();
+                //Ponemos color blanco
                 setColors(0, 15);
-
+                //Repintamos el cuadrado actual en el color de arriba
                 ventana(cursorX, cursorY, 10, 6, 0);
+
+
+
+                cursorPos(115, 5);
+                fichaSeleccionada = fichasJugador[posActualX][posActualY];
+
+
+
+                printf("%d", fichasJugador[posActualX][posActualY]);
+
             break;
     }
 
@@ -262,7 +363,6 @@ int atacar(int atacante, int receptor){
 
 
 void modoDebug(){
-
     if(debug){
         setColors(0, 15);
         cursorPos(115, 0);
@@ -276,6 +376,7 @@ void juego(){
     //Iniciamos la jugada defensiva
     setFichas(1);
 
+    setFichasPC();
 
     pintaParrilla();
 
@@ -283,7 +384,9 @@ void juego(){
 
     // Marcamos la primera casilla
     setColors(0, 13);
-    ventana(0, 0, 10, 6, 1);
+
+    //Posicion Inicial
+    ventana(posInicialCursorX, posInicialCursorY, 10, 6, 1);
 
     setColors(0,14);
 
@@ -300,9 +403,21 @@ void juego(){
 
         modoDebug();
         // Este metodo controla el movimiento del cursor
+        pintaNombreFicha(fichasJugador[posActualX][posActualY]);
         movimientoCursor();
 
 
+        /* Pequeño debug de array
+        cursorPos(115, 10);
+        int test = 10;
+        for(int i = 0; i < 4; i++){
+            cursorPos(115, test++);
+            for(int j = 0; j < 10; j++){
+                printf("%.2d ", fichasJugador[i][j]);
+            }
+            printf("\n");
+        }
+        */
 
 
 
