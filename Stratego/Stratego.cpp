@@ -23,6 +23,7 @@
 ************************/
 
 bool debug = true;
+bool seEstaJugando = true;
 
 int posInicialCursorX = 0;
 int posInicialCursorY = 42;
@@ -421,7 +422,7 @@ void juego(){
 
 
 
-    }while(true);
+    }while(seEstaJugando);
 
 
 }
