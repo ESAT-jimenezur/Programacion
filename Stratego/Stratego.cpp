@@ -197,7 +197,11 @@ void pintaParrilla(){
     //Pintamos por pantalla las fichas del PC
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 10; j++){
-            printf("%d ", tablero[i][j]);
+            if(debug){ // Si el modo "Debug" está activo, mostramos el valor de las fichas del PC, sino no
+                printf("%d ", tablero[i][j]);
+            }else{
+                printf("?");
+            }
             xIni += 11;
             cursorPos(xIni+4, yIni+3);
         }
