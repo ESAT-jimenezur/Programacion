@@ -24,8 +24,8 @@
 
 bool debug = true;
 bool seEstaJugando = true;
-
 int posInicialCursorX = 0;
+
 int posInicialCursorY = 42;
 
 int cursorX = posInicialCursorX;
@@ -50,8 +50,7 @@ int tablero[10][10] = {
 };
 
 
-int fichasJugador[10][4];
-int fichasPC[10][4];
+int arrayTemporalJugada[10][4];
 
 void juego();
 
@@ -86,25 +85,58 @@ void setColors(int texto, int fondo){
 
 void setFichas(int tipoJugada){
 
-    if(tipoJugada == 1){
-         asignaArray(fichasJugador, j_Defensiva);
-         setColors(0, 15);
-         cursorPos(115, 1);
-         printf("Estrategia Defensiva");
+    // Primero vamos a rellenar la parte superior del tablero con las fichas aleatorias del pc
+    // Esto genera las fichas del PC Aleatorias
+    /* TODO */
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 10; j++){
+            tablero[i][j] = aleatorio(10) + 100;
+        }
     }
 
+    // Comprobamos el tipo de jugada, para asignar fichas
+    //Hora generamos las del jugador
+
+    switch (tipoJugada){
+        case 0: // Fichas Aleatorias
+            for(int i = 6; i < 10; i++){
+                for(int j = 0; j < 10; j++){
+                    tablero[i][j] = aleatorio(10);
+                }
+            }
+        break;
+        case 1: //Jugada defensiva
+            // Nos 'traemos' el array de la jugada a uno temporal
+            asignaArray(arrayTemporalJugada, j_Defensiva);
+            setColors(0, 15);
+            cursorPos(115, 1);
+            printf("Estrategia Defensiva");
+            for(int i = 6; i < 10; i++){
+                for(int j = 0; j < 10; j++){
+                    tablero[i][j] = arrayTemporalJugada[i-6][j];
+                }
+            }
+        break;
+    }
+
+
+
+
+    // Ahora vamos a dar el valor a las casillas inalcanzables
+    // El numero 999 es el que vamos a usar
+    //Fila1
+    tablero[4][2] = 999;
+    tablero[4][3] = 999;
+    tablero[4][6] = 999;
+    tablero[4][7] = 999;
+    //Fila2
+    tablero[5][2] = 999;
+    tablero[5][3] = 999;
+    tablero[5][6] = 999;
+    tablero[5][7] = 999;
 }
 
-void setFichasPC(){
 
-
-     asignaArray(fichasPC, j_Defensiva);
-     setColors(0, 15);
-     cursorPos(115, 1);
-     printf("Estrategia Defensiva");
-
-
-}
 
 void pintaCasillasInaccesibles(){
     setColors(0, 3);
@@ -146,9 +178,9 @@ void pintaParrilla(){
     setColors(0, 15);
 
     // Pinta por pantalla las fichas del jugador
-    for(int i = 0; i < 4; i++){
+    for(int i = 6; i < 10; i++){
         for(int j = 0; j < 10; j++){
-            printf("%d ", fichasJugador[i][j]);
+            printf("%d ", tablero[i][j]);
             x += 11;
             cursorPos(x+4, y+3);
         }
@@ -165,7 +197,7 @@ void pintaParrilla(){
     //Pintamos por pantalla las fichas del PC
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 10; j++){
-            printf("%d ", fichasPC[i][j]);
+            printf("%d ", tablero[i][j]);
             xIni += 11;
             cursorPos(xIni+4, yIni+3);
         }
@@ -303,11 +335,11 @@ void movimientoCursor(){
 
 
                 cursorPos(115, 5);
-                fichaSeleccionada = fichasJugador[posActualX][posActualY];
+                //fichaSeleccionada = fichasJugador[posActualX][posActualY];
 
 
 
-                printf("%d", fichasJugador[posActualX][posActualY]);
+                //printf("%d", fichasJugador[posActualX][posActualY]);
 
             break;
     }
@@ -368,6 +400,21 @@ void modoDebug(){
         setColors(0, 15);
         cursorPos(115, 0);
         printf("Posicion %d - %d  \n", posActualX, posActualY);
+
+
+        /* Pequeño debug de array */
+        setColors(0, 12);
+        cursorPos(113, 55);
+        printf("***   Debug del Tablero   ***");
+        int test = 56;
+        for(int i = 0; i < 10; i++){
+            cursorPos(113, test++);
+            for(int j = 0; j < 10; j++){
+                printf("%.3d ", tablero[i][j]);
+            }
+            printf("\n");
+        }
+
     }
 }
 
@@ -376,8 +423,6 @@ void juego(){
 
     //Iniciamos la jugada defensiva
     setFichas(1);
-
-    setFichasPC();
 
     pintaParrilla();
 
@@ -404,21 +449,10 @@ void juego(){
 
         modoDebug();
         // Este metodo controla el movimiento del cursor
-        pintaNombreFicha(fichasJugador[posActualX][posActualY]);
+        //pintaNombreFicha(fichasJugador[posActualX][posActualY]);
         movimientoCursor();
 
 
-        /* Pequeño debug de array
-        cursorPos(115, 10);
-        int test = 10;
-        for(int i = 0; i < 4; i++){
-            cursorPos(115, test++);
-            for(int j = 0; j < 10; j++){
-                printf("%.2d ", fichasJugador[i][j]);
-            }
-            printf("\n");
-        }
-        */
 
 
 
