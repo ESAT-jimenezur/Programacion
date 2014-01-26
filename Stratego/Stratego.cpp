@@ -427,6 +427,13 @@ void modoDebug(){
 
 void logs(){
 
+    //Color Rojo-Debug
+    setColors(0, 13);
+    //Dibujamos ventana de debug
+    ventana(112, 34, 42, 5, 0);
+    cursorPos(125, 34);
+    printf(" Eventos ");
+
 
 }
 
@@ -459,6 +466,7 @@ void juego(){
     do{
 
         modoDebug();
+        logs();
         // Este metodo controla el movimiento del cursor
         //pintaNombreFicha(fichasJugador[posActualX][posActualY]);
         movimientoCursor();
