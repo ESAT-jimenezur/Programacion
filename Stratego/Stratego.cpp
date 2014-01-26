@@ -397,18 +397,25 @@ int atacar(int atacante, int receptor){
 
 void modoDebug(){
     if(debug){
-        setColors(0, 15);
-        cursorPos(115, 0);
-        printf("Posicion %d - %d  \n", posActualX, posActualY);
+        //Color Rojo-Debug
+        setColors(0, 12);
+        //Dibujamos ventana de debug
+        ventana(112, 40, 42, 30, 0);
+
+        cursorPos(122, 40);
+        printf("|******|DEBUG/\\ZONE|******|");
+
+        // Debug del cursor
+        cursorPos(113, 42);
+        printf("Posicion del puntero %d - %d  \n", posActualX, posActualY);
 
 
         /* Pequeño debug de array */
-        setColors(0, 12);
-        cursorPos(113, 55);
-        printf("***   Debug del Tablero   ***");
-        int test = 56;
+        cursorPos(113, 44);
+        printf("|**-**-**|Debug del Tablero|**-**-**|");
+        int y = 46;
         for(int i = 0; i < 10; i++){
-            cursorPos(113, test++);
+            cursorPos(113, y++);
             for(int j = 0; j < 10; j++){
                 printf("%.3d ", tablero[i][j]);
             }
@@ -418,6 +425,12 @@ void modoDebug(){
     }
 }
 
+void logs(){
+
+
+}
+
+
 void juego(){
     ventanaConsola(155,73, "iJoStratego");
 
@@ -426,16 +439,14 @@ void juego(){
 
     pintaParrilla();
 
-
-
     // Marcamos la primera casilla
     setColors(0, 13);
 
     //Posicion Inicial
     ventana(posInicialCursorX, posInicialCursorY, 10, 6, 1);
 
+    // Esto pinta las dos lineas a la derecha del tablero, que lo separan del "HUD"
     setColors(0,14);
-
     for(int j=110; j < 112; j++){
        for(int i=0; i < 70; i++){
            cursorPos(j,i);
