@@ -425,7 +425,7 @@ void modoDebug(){
     }
 }
 
-void logs(){
+void logs(int log){
 
     //Color Rojo-Debug
     setColors(0, 13);
@@ -435,11 +435,20 @@ void logs(){
     printf(" Eventos ");
 
 
+    cursorPos(113, 36);
+
+    switch(log){
+        case 1:
+            printf("Partida iniciada");
+        break;
+    }
+
 }
 
 
 void juego(){
     ventanaConsola(155,73, "iJoStratego");
+    logs(1); //Log -> Partida Iniciada
 
     //Iniciamos la jugada defensiva
     setFichas(1);
@@ -466,7 +475,7 @@ void juego(){
     do{
 
         modoDebug();
-        logs();
+
         // Este metodo controla el movimiento del cursor
         //pintaNombreFicha(fichasJugador[posActualX][posActualY]);
         movimientoCursor();
