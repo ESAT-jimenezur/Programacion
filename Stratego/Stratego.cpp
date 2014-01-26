@@ -34,7 +34,8 @@ int cursorY = posInicialCursorY;
 int posActualX = 0;
 int posActualY = 0;
 
-int fichaSeleccionada = false;
+int fichaSeleccionada = 0;
+int turno = 1; //Turno 1 = Persona, 2 = PC
 
 int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0,
@@ -53,7 +54,7 @@ int tablero[10][10] = {
 int arrayTemporalJugada[10][4];
 
 void juego();
-
+void logs(int log);
 
 void menu(){
 
@@ -209,6 +210,12 @@ void pintaParrilla(){
         yIni += 7;
         cursorPos(xIni+4, yIni+3);
     }
+    /*
+    if(fichaSeleccionada != 0){
+        setColors(0, 15);
+        ventana(cursorX, cursorY, 10, 6, 0);
+    }
+    */
 }
 
 void pintaNombreFicha(int id_Ficha){
@@ -280,12 +287,13 @@ void movimientoCursor(){
         case 72:
             // Arriba
             if(cursorY > 0){
-                //Repintamos la parrilla
-                pintaParrilla();
+
                 setColors(0, 13);
 
                 posActualX --;
                 cursorY -= 7;
+                //Repintamos la parrilla
+                pintaParrilla();
                 ventana(cursorX, cursorY, 10, 6, 0);
             }else{
                 setColors(0, 15);
@@ -296,55 +304,62 @@ void movimientoCursor(){
         case 80:
             // Abajo
             if(cursorY < 57){
-                //Repintamos la parrilla
-                pintaParrilla();
+
                 setColors(0, 13);
 
                 posActualX ++;
                 cursorY += 7;
+                //Repintamos la parrilla
+                pintaParrilla();
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
         case 77:
             // Derecha
             if(cursorX < 92){
-                //Repintamos la parrilla
-                pintaParrilla();
+
                 setColors(0, 13);
 
                 posActualY ++;
                 cursorX += 11;
+                //Repintamos la parrilla
+                pintaParrilla();
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
         case 75:
             // Izquierda
             if(cursorX > 0){
-                //Repintamos la parrilla
-                pintaParrilla();
+
                 setColors(0, 13);
 
                 posActualY --;
                 cursorX -= 11;
+                //Repintamos la parrilla
+                pintaParrilla();
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
         case 13: // Pulsamos ENTER
-                pintaParrilla();
-                //Ponemos color blanco
-                setColors(0, 15);
-                //Repintamos el cuadrado actual en el color de arriba
-                ventana(cursorX, cursorY, 10, 6, 0);
 
+                /* THIS CRASHES! :(
 
-
+                fichaSeleccionada = tablero[posActualX + 6][posActualY];
                 cursorPos(115, 5);
-                //fichaSeleccionada = fichasJugador[posActualX][posActualY];
+                printf("%d", fichaSeleccionada);
+                //if(fichaSeleccionada ! 100){
+                    pintaParrilla();
+                    //Ponemos color blanco
+                    setColors(0, 15);
+                    //Repintamos el cuadrado actual en el color de arriba
+                    ventana(cursorX, cursorY, 10, 6, 0);
 
-
-
-                //printf("%d", fichasJugador[posActualX][posActualY]);
-
+                    cursorPos(115, 5);
+                    logs(2); // Log 2 -> Ficha seleccionada
+               // }else{
+               //     logs(3); // Log 3 -> No puedes usar la ficha del oponente
+               // }
+               */
             break;
     }
 
@@ -442,8 +457,14 @@ void logs(int log){
     cursorPos(113, 36);
 
     switch(log){
-        case 1:
+        case 1: // Log de inicio de partida
             printf("Partida iniciada");
+        break;
+        case 2: // Log de la ficha seleccionada
+            printf("Ficha seleccionada: %s (%d)", nombreFicha(tablero[posActualX + 6][posActualY]), tablero[posActualX + 6][posActualY]);
+        break;
+        case 3:
+                printf("No puedes usar la ficha del oponente");
         break;
     }
 
@@ -452,7 +473,7 @@ void logs(int log){
 
 void juego(){
     ventanaConsola(155,73, "iJoStratego");
-    logs(1); //Log -> Partida Iniciada
+    logs(1); //Log 1 -> Partida Iniciada
 
     //Iniciamos la jugada defensiva
     setFichas(1);
