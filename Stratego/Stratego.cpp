@@ -341,12 +341,12 @@ void movimientoCursor(){
             break;
         case 13: // Pulsamos ENTER
 
-                /* THIS CRASHES! :(
+                /* This will not crash anymore! :D */
 
                 fichaSeleccionada = tablero[posActualX + 6][posActualY];
                 cursorPos(115, 5);
                 printf("%d", fichaSeleccionada);
-                //if(fichaSeleccionada ! 100){
+                if(fichaSeleccionada != 100){
                     pintaParrilla();
                     //Ponemos color blanco
                     setColors(0, 15);
@@ -354,11 +354,11 @@ void movimientoCursor(){
                     ventana(cursorX, cursorY, 10, 6, 0);
 
                     cursorPos(115, 5);
-                    logs(2); // Log 2 -> Ficha seleccionada
-               // }else{
-               //     logs(3); // Log 3 -> No puedes usar la ficha del oponente
-               // }
-               */
+                    logs(2); // Log 2 -> Ficha seleccionada   ->>>>>>> Aqui estaba el bug que hacia crashear el juego! :D ( "La llamada del bug" )
+               }else{
+                   logs(3); // Log 3 -> No puedes usar la ficha del oponente
+               }
+
             break;
     }
 
@@ -460,7 +460,7 @@ void logs(int log){
             printf("Partida iniciada");
         break;
         case 2: // Log de la ficha seleccionada
-            printf("Ficha seleccionada: %s (%d)", nombreFicha(tablero[posActualX + 6][posActualY]), tablero[posActualX + 6][posActualY]);
+            //printf("Ficha seleccionada: %s (%d)", nombreFicha(tablero[posActualX + 6][posActualY]), tablero[posActualX + 6][posActualY]); --> Something is bugged here! :O
         break;
         case 3:
                 printf("No puedes usar la ficha del oponente");
