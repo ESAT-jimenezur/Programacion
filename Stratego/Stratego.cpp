@@ -303,19 +303,32 @@ void movimientoCursor(){
                 printf("%d", fichaSeleccionada); // -> Borrar
 
                 /* This will not crash anymore! :D */
-                if(fichaSeleccionada < 100){
+                if(fichaSeleccionada <= 12){
 
-                    pintaParrilla();
-                    //Ponemos color blanco
-                    setColors(0, 15);
-                    //Repintamos el cuadrado actual en el color de arriba
-                    ventana(cursorX, cursorY, 10, 6, 0);
+                    //C'mon con las comprobaciones
 
-                    cursorPos(115, 5);
-                    logs(2); // Log 2 -> Ficha seleccionada   ->>>>>>> Aqui estaba el bug que hacia crashear el juego! :D ( "La llamada del bug" )
+                    //Ya sabemos que la ficha es menor a 12, so... es nuestra ^^
+
+
+
+                                    pintaParrilla();
+                                    //Ponemos color blanco
+                                    setColors(0, 15);
+                                    //Repintamos el cuadrado actual en el color de arriba
+                                    ventana(cursorX, cursorY, 10, 6, 0);
+
+                                    cursorPos(115, 5);
+                                    logs(2); // Log 2 -> Ficha seleccionada   ->>>>>>> Aqui estaba el bug que hacia crashear el juego! :D ( "La llamada del bug" )
+
+
                }else{
 
-                   logs(3); // Log 3 -> No puedes usar la ficha del oponente
+                    if(fichaSeleccionada == 999){//Estamos pinchando en el agua
+                        logs(4);
+                    }else{
+                        logs(3); // Log 3 -> No puedes usar la ficha del oponente
+                    }
+
                }
 
             }else{
@@ -432,6 +445,9 @@ void logs(int log){
         break;
         case 3:
             printf("No puedes usar la ficha del oponente");
+        break;
+        case 4:
+            printf("Hold your horses! This is Agua!");
         break;
     }
 
