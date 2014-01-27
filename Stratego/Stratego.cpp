@@ -222,52 +222,6 @@ void pintaParrilla(){
     */
 }
 
-void pintaNombreFicha(int id_Ficha){
-    cursorPos(115, 5);
-
-    // Limpio de forma cutrilla la linea, para que no se solapen los nombres
-    printf("                     ");
-    switch (id_Ficha){
-        case 1:
-            printf("Mariscal");
-            break;
-        case 2:
-            printf("General");
-            break;
-        case 3:
-            printf("Coronel");
-            break;
-        case 4:
-            printf("Comandante");
-            break;
-        case 5:
-            printf("Capitan");
-            break;
-        case 6:
-            printf("Teniente");
-            break;
-        case 7:
-            printf("Sargento");
-            break;
-        case 8:
-            printf("Minero");
-            break;
-        case 9:
-            printf("Explorador");
-            break;
-        case 10:
-            printf("Espia");
-            break;
-        case 99:
-            printf("Bomba");
-            break;
-        case 100:
-            printf("Bandera");
-            break;
-    }
-
-
-}
 
 void movimientoCursor(){
 
@@ -454,13 +408,15 @@ void logs(int log){
 
 
     cursorPos(113, 36);
-
+    // Limpio de forma cutrilla la linea, para que no se solapen los nombres
+    printf("                     ");
+    cursorPos(113, 36);
     switch(log){
         case 1: // Log de inicio de partida
             printf("Partida iniciada");
         break;
         case 2: // Log de la ficha seleccionada
-            //printf("Ficha seleccionada: %s (%d)", nombreFicha(tablero[posActualX + 6][posActualY]), tablero[posActualX + 6][posActualY]); --> Something is bugged here! :O
+            printf("Ficha seleccionada: %s (%d)", nombreFicha(tablero[posActualX + 6][posActualY]), tablero[posActualX + 6][posActualY]); //--> Something is bugged here! :O
         break;
         case 3:
                 printf("No puedes usar la ficha del oponente");
