@@ -210,6 +210,10 @@ void pintaParrilla(){
         yIni += 7;
         cursorPos(xIni+4, yIni+3);
     }
+
+    //Volvemos a poner el color "Azul" de casilla seleccionada
+    setColors(0, 13);
+
     /*
     if(fichaSeleccionada != 0){
         setColors(0, 15);
@@ -277,8 +281,7 @@ void movimientoCursor(){
         c = getch();
     }
 
-
-
+    setColors(0, 13);
     switch (c){
         /**
             REVISAR QUE NO SE SALGA DE PANTALLA
@@ -287,13 +290,12 @@ void movimientoCursor(){
         case 72:
             // Arriba
             if(cursorY > 0){
-
-                setColors(0, 13);
+                //Repintamos la parrilla
+                pintaParrilla();
 
                 posActualX --;
                 cursorY -= 7;
-                //Repintamos la parrilla
-                pintaParrilla();
+
                 ventana(cursorX, cursorY, 10, 6, 0);
             }else{
                 setColors(0, 15);
@@ -304,39 +306,36 @@ void movimientoCursor(){
         case 80:
             // Abajo
             if(cursorY < 57){
-
-                setColors(0, 13);
+                //Repintamos la parrilla
+                pintaParrilla();
 
                 posActualX ++;
                 cursorY += 7;
-                //Repintamos la parrilla
-                pintaParrilla();
+
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
         case 77:
             // Derecha
             if(cursorX < 92){
-
-                setColors(0, 13);
+                //Repintamos la parrilla
+                pintaParrilla();
 
                 posActualY ++;
                 cursorX += 11;
-                //Repintamos la parrilla
-                pintaParrilla();
+
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
         case 75:
             // Izquierda
             if(cursorX > 0){
-
-                setColors(0, 13);
+                //Repintamos la parrilla
+                pintaParrilla();
 
                 posActualY --;
                 cursorX -= 11;
-                //Repintamos la parrilla
-                pintaParrilla();
+
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
@@ -504,7 +503,6 @@ void juego(){
         // Este metodo controla el movimiento del cursor
         //pintaNombreFicha(fichasJugador[posActualX][posActualY]);
         movimientoCursor();
-
 
 
 
