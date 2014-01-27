@@ -51,10 +51,10 @@ char *nombreFicha(int ficha){
         case 10:
             return "Espia";
             break;
-        case 99:
+        case 11:
             return "Bomba";
             break;
-        case 100:
+        case 12:
             return "Bandera";
             break;
     }
