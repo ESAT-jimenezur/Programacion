@@ -34,6 +34,12 @@ int cursorY = posInicialCursorY;
 int posActualX = 0;
 int posActualY = 0;
 
+int posFichaSeleccionadaX = 0;
+int posFichaSeleccionadaY = 0;
+
+int cursorPosAnteriorX = 0;
+int cursorPosAnteriorY = 0;
+
 int fichaSeleccionada = 0;
 bool hayFichaSeleccionada;
 int turno = 1; //Turno 1 = Persona, 2 = PC
@@ -321,6 +327,11 @@ void movimientoCursor(){
 
             if(!hayFichaSeleccionada){
                 fichaSeleccionada = tablero[posActualX + 6][posActualY];
+                posFichaSeleccionadaX = posActualX + 6;
+                posFichaSeleccionadaY = posActualY;
+                cursorPosAnteriorX = cursorX;
+                cursorPosAnteriorY = cursorY;
+
                 /* This will not crash anymore! :D */
                 if(fichaSeleccionada <= 12 && fichaSeleccionada > 0){
 
@@ -335,13 +346,14 @@ void movimientoCursor(){
 
                     if(hayFichaSeleccionada){
 
-                                //Ponemos color blanco
-                                setColors(0, 15);
-                                //Repintamos el cuadrado actual en el color de arriba
-                                ventana(cursorX, cursorY, 10, 6, 0);
 
-                                cursorPos(115, 5);
-                                logs(2); // Log 2 -> Ficha seleccionada   ->>>>>>> Aqui estaba el bug que hacia crashear el juego! :D ( "La llamada del bug" )
+                            //Ponemos color blanco
+                            setColors(0, 15);
+                            //Repintamos el cuadrado actual en el color de arriba
+                            ventana(cursorX, cursorY, 10, 6, 0);
+
+                            cursorPos(115, 5);
+                            logs(2); // Log 2 -> Ficha seleccionada   ->>>>>>> Aqui estaba el bug que hacia crashear el juego! :D ( "La llamada del bug" )
 
                     }
 
@@ -358,13 +370,20 @@ void movimientoCursor(){
 
             }else{
 
+                //if(posFichaSeleccionadaX !=)
 
+                // TODO
                 cursorPos(115, 5);
-                printf("Soltar Ficha"); // -> Borrar
+                printf("Soltar Ficha %d. Pos X -> %d. Pos Y -> %d", tablero[posFichaSeleccionadaX][posFichaSeleccionadaY], posFichaSeleccionadaX, posFichaSeleccionadaY); // -> Borrar
+
+                tablero[posActualX][posActualY] = 0; // Ponemos la ficha anterior a 0;
+
+                cursorPos(cursorPosAnteriorX + 3, cursorPosAnteriorY + 3); //Ponemos el cursor en la posicion de la ficha anterior
+                printf("   ");
+
+                tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
 
                 hayFichaSeleccionada = false;
-
-
             }
 
 
