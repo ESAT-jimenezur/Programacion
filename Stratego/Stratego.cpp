@@ -254,7 +254,7 @@ void movimientoCursor(){
                 posActualX --;
                 cursorY -= 7;
 
-                if(hayFichaSeleccionada){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
+                if(hayFichaSeleccionada && fichaSeleccionada <= 12){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
                     setColors(0, 15);
                 }else{
                     setColors(0, 13);
@@ -276,7 +276,7 @@ void movimientoCursor(){
                 posActualX ++;
                 cursorY += 7;
 
-                if(hayFichaSeleccionada){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
+                if(hayFichaSeleccionada && fichaSeleccionada <= 12){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
                     setColors(0, 15);
                 }else{
                     setColors(0, 13);
@@ -293,7 +293,7 @@ void movimientoCursor(){
                 posActualY ++;
                 cursorX += 11;
 
-                if(hayFichaSeleccionada){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
+                if(hayFichaSeleccionada && fichaSeleccionada <= 12){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
                     setColors(0, 15);
                 }else{
                     setColors(0, 13);
@@ -309,7 +309,7 @@ void movimientoCursor(){
 
                 posActualY --;
                 cursorX -= 11;
-                if(hayFichaSeleccionada){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
+                if(hayFichaSeleccionada && fichaSeleccionada <= 12){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
                     setColors(0, 15);
                 }else{
                     setColors(0, 13);
@@ -320,40 +320,48 @@ void movimientoCursor(){
         case 13: // Pulsamos ENTER
 
             if(!hayFichaSeleccionada){
-                hayFichaSeleccionada = true;  //Tenemos una ficha en la "mano"
                 fichaSeleccionada = tablero[posActualX + 6][posActualY];
-                cursorPos(115, 5);
-                printf("%d", fichaSeleccionada); // -> Borrar
-
                 /* This will not crash anymore! :D */
-                if(fichaSeleccionada <= 12){
+                if(fichaSeleccionada <= 12 && fichaSeleccionada > 0){
 
                     //C'mon con las comprobaciones
 
                     //Ya sabemos que la ficha es menor a 12, so... es nuestra ^^
+                    hayFichaSeleccionada = true;  //Tenemos una ficha en la "mano"
+                    cursorPos(115, 5);
+
+                    //printf("%d", fichaSeleccionada); // -> Borrar
 
 
-                                    //pintaParrilla();
-                                    //Ponemos color blanco
-                                    setColors(0, 15);
-                                    //Repintamos el cuadrado actual en el color de arriba
-                                    ventana(cursorX, cursorY, 10, 6, 0);
+                    if(hayFichaSeleccionada){
 
-                                    cursorPos(115, 5);
-                                    logs(2); // Log 2 -> Ficha seleccionada   ->>>>>>> Aqui estaba el bug que hacia crashear el juego! :D ( "La llamada del bug" )
+                                //Ponemos color blanco
+                                setColors(0, 15);
+                                //Repintamos el cuadrado actual en el color de arriba
+                                ventana(cursorX, cursorY, 10, 6, 0);
+
+                                cursorPos(115, 5);
+                                logs(2); // Log 2 -> Ficha seleccionada   ->>>>>>> Aqui estaba el bug que hacia crashear el juego! :D ( "La llamada del bug" )
+
+                    }
 
 
                }else{
-
                     if(fichaSeleccionada == 999){//Estamos pinchando en el agua
                         logs(4);
+                    }else if(fichaSeleccionada == 0){
+                        logs(5); // Log 5 -> Hueco vacio!
                     }else{
                         logs(3); // Log 3 -> No puedes usar la ficha del oponente
                     }
-
                }
 
             }else{
+
+
+                cursorPos(115, 5);
+                printf("Soltar Ficha"); // -> Borrar
+
                 hayFichaSeleccionada = false;
 
 
@@ -363,7 +371,7 @@ void movimientoCursor(){
             break;
     }
 
-
+    pintaCasillasInaccesibles();
 
 }
 
@@ -470,6 +478,9 @@ void logs(int log){
         break;
         case 4:
             printf("Hold your horses! This is Agua!");
+        break;
+        case 5:
+            printf("Esta posicion esta vacia!");
         break;
     }
 
