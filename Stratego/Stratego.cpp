@@ -223,7 +223,6 @@ void pintaParrilla(){
     */
 }
 
-
 void movimientoCursor(){
 
     //Vaciamos el buffer;
@@ -236,7 +235,10 @@ void movimientoCursor(){
         c = getch();
     }
 
-    setColors(0, 13);
+
+
+
+
     switch (c){
         /**
             REVISAR QUE NO SE SALGA DE PANTALLA
@@ -245,12 +247,18 @@ void movimientoCursor(){
         case 72:
             // Arriba
             if(cursorY > 0){
-                //Repintamos la parrilla
-                pintaParrilla();
+
+                setColors(0, 14);
+                ventana(cursorX, cursorY, 10, 6, 0);
 
                 posActualX --;
                 cursorY -= 7;
 
+                if(hayFichaSeleccionada){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
+                    setColors(0, 15);
+                }else{
+                    setColors(0, 13);
+                }
                 ventana(cursorX, cursorY, 10, 6, 0);
             }else{
                 setColors(0, 15);
@@ -261,36 +269,51 @@ void movimientoCursor(){
         case 80:
             // Abajo
             if(cursorY < 57){
-                //Repintamos la parrilla
-                pintaParrilla();
+
+                setColors(0, 14);
+                ventana(cursorX, cursorY, 10, 6, 0);
 
                 posActualX ++;
                 cursorY += 7;
 
+                if(hayFichaSeleccionada){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
+                    setColors(0, 15);
+                }else{
+                    setColors(0, 13);
+                }
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
         case 77:
             // Derecha
             if(cursorX < 92){
-                //Repintamos la parrilla
-                pintaParrilla();
+                setColors(0, 14);
+                ventana(cursorX, cursorY, 10, 6, 0);
 
                 posActualY ++;
                 cursorX += 11;
 
+                if(hayFichaSeleccionada){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
+                    setColors(0, 15);
+                }else{
+                    setColors(0, 13);
+                }
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
         case 75:
             // Izquierda
             if(cursorX > 0){
-                //Repintamos la parrilla
-                pintaParrilla();
+                setColors(0, 14);
+                ventana(cursorX, cursorY, 10, 6, 0);
 
                 posActualY --;
                 cursorX -= 11;
-
+                if(hayFichaSeleccionada){ // Si hay ficha seleccionada, el puntero sera blanco, sino, azul
+                    setColors(0, 15);
+                }else{
+                    setColors(0, 13);
+                }
                 ventana(cursorX, cursorY, 10, 6, 0);
             }
             break;
@@ -310,8 +333,7 @@ void movimientoCursor(){
                     //Ya sabemos que la ficha es menor a 12, so... es nuestra ^^
 
 
-
-                                    pintaParrilla();
+                                    //pintaParrilla();
                                     //Ponemos color blanco
                                     setColors(0, 15);
                                     //Repintamos el cuadrado actual en el color de arriba
@@ -434,7 +456,7 @@ void logs(int log){
 
     cursorPos(113, 36);
     // Limpio de forma cutrilla la linea, para que no se solapen los nombres
-    printf("                     ");
+    printf("                         ");
     cursorPos(113, 36);
     switch(log){
         case 1: // Log de inicio de partida
