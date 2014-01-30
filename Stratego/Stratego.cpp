@@ -22,7 +22,7 @@
 ** Variables Globales **
 ************************/
 
-bool debug = false;
+bool debug = true;
 bool seEstaJugando = true;
 int posInicialCursorX = 0;
 
@@ -44,7 +44,7 @@ int fichasMovidas1aFilaPC = 0;
 
 int fichaSeleccionada = 0;
 bool hayFichaSeleccionada;
-int turno = -1; //Turno 1 = Persona, -1 = PC
+int turno = 1; //Turno 1 = Persona, -1 = PC
 
 int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0,
@@ -255,10 +255,6 @@ void movimientoCursor(){
         c = getch();
     }
 
-
-
-
-
     switch (c){
         /**
             REVISAR QUE NO SE SALGA DE PANTALLA
@@ -398,6 +394,13 @@ void movimientoCursor(){
                 tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
 
                 hayFichaSeleccionada = false;
+                pintaParrilla();
+
+
+
+                //Si llegamos hasta aqui, pasamos el turno al PC;
+                turno *= -1;
+
             }
 
 
@@ -460,6 +463,7 @@ void movimientoPC(){
                 tablero[posFichaPCX][posFichaPCY + 1] = fichaPCAMover;
 
                 pintaParrilla();
+
             }else{ // Sino, por ultimo comprobamos si a la izquierda esta vacia
                 //Movemos la ficha
                 int fichaPCAMover = tablero[posFichaPCX][posFichaPCY];
@@ -467,15 +471,21 @@ void movimientoPC(){
                 tablero[posFichaPCX][posFichaPCY - 1] = fichaPCAMover;
 
                 pintaParrilla();
+
             }
+
+        }else{ //Combate?
+
+            if(tablero[posFichaPCX + 1][posFichaPCY ] <= 12){
+                printf("%d - %d es igual a ", posFichaPCX+1, posFichaPCY, tablero[posFichaPCX + 1][posFichaPCY ]);
+            }
+
         }
 
-
-        //printf("%d %d -> %d", posFichaPCX, posFichaPCY, tablero[posFichaPCX][posFichaPCY]);
-
-        //cursorPos(120, 25);
-        //printf("%d %d -> %d", posFichaPCX + 1, posFichaPCY, tablero[posFichaPCX + 1][posFichaPCY ]);
+        //Si llegamos hasta aqui, pasamos el turno al PC;
+        turno *= -1;
     }
+
 
     //Sleep(500);
 
@@ -629,8 +639,6 @@ void juego(){
         }else{
             movimientoPC();
         }
-
-
 
 
 
