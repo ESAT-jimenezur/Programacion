@@ -40,9 +40,11 @@ int posFichaSeleccionadaY = 0;
 int cursorPosAnteriorX = 0;
 int cursorPosAnteriorY = 0;
 
+int fichasMovidas1aFilaPC = 0;
+
 int fichaSeleccionada = 0;
 bool hayFichaSeleccionada;
-int turno = 1; //Turno 1 = Persona, 2 = PC
+int turno = -1; //Turno 1 = Persona, -1 = PC
 
 int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0,
@@ -62,6 +64,7 @@ int arrayTemporalJugada[10][4];
 
 void juego();
 void logs(int log);
+void movimientoPC();
 
 void menu(){
 
@@ -93,12 +96,14 @@ void setColors(int texto, int fondo){
 
 void setFichas(int tipoJugada){
 
+    seed(); //Iniciamos una nueva "Semilla" para que nos salgan aleatorios
+
     // Primero vamos a rellenar la parte superior del tablero con las fichas aleatorias del pc
     // Esto genera las fichas del PC Aleatorias
     /* TODO */
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 10; j++){
-            tablero[i][j] = aleatorio(10) + 100;
+            tablero[i][j] = aleatorio(12) + 100;
         }
     }
 
@@ -143,8 +148,6 @@ void setFichas(int tipoJugada){
     tablero[5][6] = 999;
     tablero[5][7] = 999;
 }
-
-
 
 void pintaCasillasInaccesibles(){
     setColors(0, 3);
@@ -203,10 +206,16 @@ void pintaParrilla(){
 
 
     //Pintamos por pantalla las fichas del PC
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < 7; i++){
         for(int j = 0; j < 10; j++){
             if(debug){ // Si el modo "Debug" está activo, mostramos el valor de las fichas del PC, sino no
-                printf("%d ", tablero[i][j]);
+                if(tablero[i][j] == 0){
+                      printf("   ");
+                }else if(tablero[i][j] == 999){
+                    printf(" ");
+                }else{
+                    printf("%d ", tablero[i][j]);
+                }
             }else{
                 printf("?");
             }
@@ -394,7 +403,63 @@ void movimientoCursor(){
 
 }
 
+void movimientoPC(){
+    int posFichaPCX;
+    cursorPos(120, 20); //Totally Debug!
 
+
+    //Obtenemos una ficha random
+    if(fichasMovidas1aFilaPC < 5){
+        posFichaPCX = 3;
+    }else if(fichasMovidas1aFilaPC >= 5){
+        posFichaPCX = aleatorio(2);
+        printf("%d, %d", fichasMovidas1aFilaPC, posFichaPCX);
+        if(posFichaPCX == 0){
+            posFichaPCX == 4;
+        }else if(posFichaPCX == 1){
+            posFichaPCX == 2;
+        }
+    }
+
+    cursorPos(120, 25); //Totally Debug!
+    printf("Llega? %d", posFichaPCX);
+
+    int posFichaPCY = aleatorio(10);
+
+    int fichaPC = tablero[posFichaPCX][posFichaPCY];
+    //int fichaPC = tablero[0][9];
+
+
+
+    if(fichaPC == 110 || fichaPC == 111){
+        //printf("Ficha mala! %d", fichaPC);
+        movimientoPC();
+    }else{
+
+
+        if(tablero[posFichaPCX + 1][posFichaPCY ] == 0){
+            //printf("Ficha %d posicion %d vacia", fichaPC, tablero[posFichaPCX + 1][posFichaPCY]);
+
+            //Movemos la ficha
+            int fichaPCAMover = tablero[posFichaPCX][posFichaPCY];
+            tablero[posFichaPCX][posFichaPCY] = 0;
+            tablero[posFichaPCX + 1][posFichaPCY] = fichaPCAMover;
+            fichasMovidas1aFilaPC++;
+
+            pintaParrilla();
+
+        }
+
+
+        //printf("%d %d -> %d", posFichaPCX, posFichaPCY, tablero[posFichaPCX][posFichaPCY]);
+
+        //cursorPos(120, 25);
+        //printf("%d %d -> %d", posFichaPCX + 1, posFichaPCY, tablero[posFichaPCX + 1][posFichaPCY ]);
+    }
+
+    Sleep(500);
+
+}
 
 /**************************************
  ** Este metodo es utilizado por las **
@@ -538,7 +603,13 @@ void juego(){
 
         // Este metodo controla el movimiento del cursor
         //pintaNombreFicha(fichasJugador[posActualX][posActualY]);
-        movimientoCursor();
+
+        if(turno == 1){ //Turno 1 = Persona; -1 = PC
+            movimientoCursor();
+        }else{
+            movimientoPC();
+        }
+
 
 
 
