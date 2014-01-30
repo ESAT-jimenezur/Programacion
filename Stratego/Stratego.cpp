@@ -178,7 +178,7 @@ void pintaParrilla(){
 
 
     int x = 0;
-    int y = 42;
+    int y = 0;
 
     setColors(0, 14);
     parrilla(0, 0, 10, 10, 10, 6, 1, 1);
@@ -189,27 +189,12 @@ void pintaParrilla(){
     cursorPos(x+4, y+3);
     setColors(0, 15);
 
-    // Pinta por pantalla las fichas del jugador
-    for(int i = 6; i < 10; i++){
+    //Nuevo metodo de pintado
+    for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
-            printf("%d ", tablero[i][j]);
-            x += 11;
-            cursorPos(x+4, y+3);
-        }
-        x = 0;
-        y += 7;
-        cursorPos(x+4, y+3);
-    }
 
-    //Reset de posicion
-    cursorPos(xIni+4, yIni+3);
-
-
-
-    //Pintamos por pantalla las fichas del PC
-    for(int i = 0; i < 7; i++){
-        for(int j = 0; j < 10; j++){
-            if(debug){ // Si el modo "Debug" está activo, mostramos el valor de las fichas del PC, sino no
+            if(debug){
+                //Si tenemos el modo debug habilitado, pintamos todo menos las casillas vacias y el agua
                 if(tablero[i][j] == 0){
                       printf("   ");
                 }else if(tablero[i][j] == 999){
@@ -218,10 +203,13 @@ void pintaParrilla(){
                     printf("%d ", tablero[i][j]);
                 }
             }else{
-                 if(tablero[i][j] >= 100 && tablero[i][j] < 999){
+                //Sino, pintamos solo lo del jugador
+                if(tablero[i][j] >= 100 && tablero[i][j] < 999){
                     printf("?");
                 }else if(tablero[i][j] == 0 || tablero[i][j] == 999){
                     printf(" ");
+                }else{
+                    printf("%d ", tablero[i][j]);
                 }
 
             }
