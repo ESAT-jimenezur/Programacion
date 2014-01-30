@@ -65,6 +65,7 @@ int arrayTemporalJugada[10][4];
 void juego();
 void logs(int log);
 void movimientoPC();
+void compruebaCombate(int turno, int valorAtacante, int posX_Inicio, int PosY_Inicio, int PosX_Destino, int posY_Destino);
 
 void menu(){
 
@@ -235,12 +236,6 @@ void pintaParrilla(){
     //Volvemos a poner el color "Azul" de casilla seleccionada
     setColors(0, 13);
 
-    /*
-    if(fichaSeleccionada != 0){
-        setColors(0, 15);
-        ventana(cursorX, cursorY, 10, 6, 0);
-    }
-    */
 }
 
 void movimientoCursor(){
@@ -380,27 +375,22 @@ void movimientoCursor(){
 
             }else{
 
-                //if(posFichaSeleccionadaX !=)
+                    if(tablero[posActualX + 6][posActualY] == 0){
+                        tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
+                    }else if(tablero[posActualX + 6][posActualY] >= 100){
+                        int valorAtacante = fichaSeleccionada;
+                        compruebaCombate(1, valorAtacante, posFichaSeleccionadaX, posFichaSeleccionadaY, posActualX + 6, posActualY);
+                    }
 
-                // TODO
-                cursorPos(115, 5);
-                printf("Soltar Ficha %d. Pos X -> %d. Pos Y -> %d", tablero[posFichaSeleccionadaX][posFichaSeleccionadaY], posFichaSeleccionadaX, posFichaSeleccionadaY); // -> Borrar
 
-                tablero[posActualX][posActualY] = 0; // Ponemos la ficha anterior a 0;
+                tablero[posFichaSeleccionadaX][posFichaSeleccionadaY] = 0; // Ponemos la ficha anterior a 0;
 
-                cursorPos(cursorPosAnteriorX + 3, cursorPosAnteriorY + 3); //Ponemos el cursor en la posicion de la ficha anterior
-                printf("   ");
-
-                tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
 
                 hayFichaSeleccionada = false;
-                pintaParrilla();
-
-
 
                 //Si llegamos hasta aqui, pasamos el turno al PC;
                 turno *= -1;
-
+                pintaParrilla();
             }
 
 
@@ -413,9 +403,6 @@ void movimientoCursor(){
 
 void movimientoPC(){
     int posFichaPCX;
-    cursorPos(120, 20); //Totally Debug!
-
-
     //Obtenemos una ficha random
     if(fichasMovidas1aFilaPC < 5){
         posFichaPCX = 3;
@@ -429,18 +416,11 @@ void movimientoPC(){
         }
     }
 
-    cursorPos(120, 25); //Totally Debug!
-    printf("Llega? %d", posFichaPCX);
-
     int posFichaPCY = aleatorio(10);
 
     int fichaPC = tablero[posFichaPCX][posFichaPCY];
-    //int fichaPC = tablero[0][9];
-
-
 
     if(fichaPC == 110 || fichaPC == 111){
-        //printf("Ficha mala! %d", fichaPC);
         movimientoPC();
     }else{
 
@@ -455,6 +435,9 @@ void movimientoPC(){
 
             pintaParrilla();
 
+            //Si llegamos hasta aqui, pasamos el turno al PC;
+            turno *= -1;
+
         }else if(tablero[posFichaPCX][posFichaPCY + 1] == 0 || tablero[posFichaPCX][posFichaPCY - 1] == 0){ // Comprobamos los laterales de la ficha
             if(tablero[posFichaPCX][posFichaPCY + 1] == 0){ // Sino, comprobamos si a la derecha esta vacia
                 //Movemos la ficha
@@ -464,6 +447,9 @@ void movimientoPC(){
 
                 pintaParrilla();
 
+                //Si llegamos hasta aqui, pasamos el turno al PC;
+                turno *= -1;
+
             }else{ // Sino, por ultimo comprobamos si a la izquierda esta vacia
                 //Movemos la ficha
                 int fichaPCAMover = tablero[posFichaPCX][posFichaPCY];
@@ -472,6 +458,9 @@ void movimientoPC(){
 
                 pintaParrilla();
 
+                //Si llegamos hasta aqui, pasamos el turno al PC;
+                turno *= -1;
+
             }
 
         }else{ //Combate?
@@ -479,11 +468,9 @@ void movimientoPC(){
             if(tablero[posFichaPCX + 1][posFichaPCY ] <= 12){
                 printf("%d - %d es igual a ", posFichaPCX+1, posFichaPCY, tablero[posFichaPCX + 1][posFichaPCY ]);
             }
-
         }
 
-        //Si llegamos hasta aqui, pasamos el turno al PC;
-        turno *= -1;
+
     }
 
 
@@ -491,16 +478,32 @@ void movimientoPC(){
 
 }
 
-/**************************************
- ** Este metodo es utilizado por las **
- ** fichas para atacar a otras       **
- **                                  **
- ** @get                             **
- ** int atacante (El tipo de ficha)  **
- ** int receptor (El tipo de ficha)  **
- ** @return                          **
- ** int ganador (La ficha que gana)  **
-**************************************/
+void compruebaCombate(int turno, int valorAtacante, int posX_Inicio, int posY_Inicio, int posX_Destino, int posY_Destino){
+
+    int atacante = tablero[posX_Inicio][posY_Inicio];
+    int defensor = tablero[posX_Destino][posY_Destino];
+
+    defensor -= 100; // Ya no tiene ventaja el PC! :D
+
+    //cursor
+
+    cursorPos(125, 30);
+    //printf("%d vs %d ", atacante, defensor);
+    //printf("POS: %d:%d(%d)  -> POS %d:%d(%d)", posX_Inicio, posY_Inicio,atacante, posX_Destino, posY_Destino, defensor);
+    if(turno == 1){ // Usuario
+        if(atacante > defensor){
+            tablero[posX_Destino][posY_Destino] = atacante;
+            printf("Combate! %d vs %d gana atacante", atacante, defensor);
+            pintaParrilla();
+        }else{
+            tablero[posX_Inicio][posY_Inicio] = defensor;
+            printf("Combate! %d vs %d gana defensor", atacante, defensor);
+            pintaParrilla();
+        }
+    }else{
+
+    }
+}
 
 int atacar(int atacante, int receptor){
     bool ganador;
