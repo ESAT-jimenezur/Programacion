@@ -22,7 +22,7 @@
 ** Variables Globales **
 ************************/
 
-bool debug = true;
+bool debug = false;
 bool seEstaJugando = true;
 int posInicialCursorX = 0;
 
@@ -217,7 +217,12 @@ void pintaParrilla(){
                     printf("%d ", tablero[i][j]);
                 }
             }else{
-                printf("?");
+                 if(tablero[i][j] >= 100 && tablero[i][j] < 999){
+                    printf("?");
+                }else if(tablero[i][j] == 0 || tablero[i][j] == 999){
+                    printf(" ");
+                }
+
             }
             xIni += 11;
             cursorPos(xIni+4, yIni+3);
