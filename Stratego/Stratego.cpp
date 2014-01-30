@@ -415,9 +415,9 @@ void movimientoPC(){
         posFichaPCX = aleatorio(2);
         printf("%d, %d", fichasMovidas1aFilaPC, posFichaPCX);
         if(posFichaPCX == 0){
-            posFichaPCX == 4;
+            posFichaPCX = 3;    //Nota mental -> Soy retrasado (20 minutos, sin ver que estaba haciendo una comparacion en lugar de una asignacion)
         }else if(posFichaPCX == 1){
-            posFichaPCX == 2;
+            posFichaPCX = 2;
         }
     }
 
@@ -437,8 +437,7 @@ void movimientoPC(){
     }else{
 
 
-        if(tablero[posFichaPCX + 1][posFichaPCY ] == 0){
-            //printf("Ficha %d posicion %d vacia", fichaPC, tablero[posFichaPCX + 1][posFichaPCY]);
+        if(tablero[posFichaPCX + 1][posFichaPCY ] == 0){ // Si la posicion inferior de esa casilla esta vacia
 
             //Movemos la ficha
             int fichaPCAMover = tablero[posFichaPCX][posFichaPCY];
@@ -448,6 +447,22 @@ void movimientoPC(){
 
             pintaParrilla();
 
+        }else if(tablero[posFichaPCX][posFichaPCY + 1] == 0 || tablero[posFichaPCX][posFichaPCY - 1] == 0){ // Comprobamos los laterales de la ficha
+            if(tablero[posFichaPCX][posFichaPCY + 1] == 0){ // Sino, comprobamos si a la derecha esta vacia
+                //Movemos la ficha
+                int fichaPCAMover = tablero[posFichaPCX][posFichaPCY];
+                tablero[posFichaPCX][posFichaPCY] = 0;
+                tablero[posFichaPCX][posFichaPCY + 1] = fichaPCAMover;
+
+                pintaParrilla();
+            }else{ // Sino, por ultimo comprobamos si a la izquierda esta vacia
+                //Movemos la ficha
+                int fichaPCAMover = tablero[posFichaPCX][posFichaPCY];
+                tablero[posFichaPCX][posFichaPCY] = 0;
+                tablero[posFichaPCX][posFichaPCY - 1] = fichaPCAMover;
+
+                pintaParrilla();
+            }
         }
 
 
@@ -457,7 +472,7 @@ void movimientoPC(){
         //printf("%d %d -> %d", posFichaPCX + 1, posFichaPCY, tablero[posFichaPCX + 1][posFichaPCY ]);
     }
 
-    Sleep(500);
+    //Sleep(500);
 
 }
 
