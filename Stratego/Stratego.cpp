@@ -59,10 +59,9 @@ int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0
 };
 
-
 int arrayTemporalJugada[10][4];
 
-void juego();
+void juego(int tipoInicio);
 void logs(int log);
 void movimientoPC();
 void compruebaCombate(int turno, int valorAtacante, int posX_Inicio, int PosY_Inicio, int PosX_Destino, int posY_Destino);
@@ -79,13 +78,13 @@ void menu(){
 
     switch (c){
         case 1:
-
+            juego(1); //Jugada Defensiva
             break;
         case 2:
-
+            juego(2); //Jugada Agresiva
             break;
         case 3:
-            juego();
+            juego(3); //Colocar Fichas
             break;
     }
 
@@ -112,19 +111,24 @@ void setFichas(int tipoJugada){
     //Hora generamos las del jugador
 
     switch (tipoJugada){
-        case 0: // Fichas Aleatorias
-            for(int i = 6; i < 10; i++){
-                for(int j = 0; j < 10; j++){
-                    tablero[i][j] = aleatorio(10);
-                }
-            }
-        break;
         case 1: //Jugada defensiva
             // Nos 'traemos' el array de la jugada a uno temporal
             asignaArray(arrayTemporalJugada, j_Defensiva);
             setColors(0, 15);
             cursorPos(115, 1);
             printf("Estrategia Defensiva");
+            for(int i = 6; i < 10; i++){
+                for(int j = 0; j < 10; j++){
+                    tablero[i][j] = arrayTemporalJugada[i-6][j];
+                }
+            }
+        break;
+        case 2: //Jugada Agresiva
+            // Nos 'traemos' el array de la jugada a uno temporal
+            asignaArray(arrayTemporalJugada, j_Agresiva);
+            setColors(0, 15);
+            cursorPos(115, 1);
+            printf("Estrategia Agresiva");
             for(int i = 6; i < 10; i++){
                 for(int j = 0; j < 10; j++){
                     tablero[i][j] = arrayTemporalJugada[i-6][j];
@@ -525,8 +529,6 @@ int atacar(int atacante, int receptor){
     return ganador;
 }
 
-
-
 void modoDebug(){
     if(debug){
         //Color Rojo-Debug
@@ -591,13 +593,21 @@ void logs(int log){
 
 }
 
-
-void juego(){
+void juego(int tipoInicio){
     ventanaConsola(155,73, "iJoStratego");
     logs(1); //Log 1 -> Partida Iniciada
 
-    //Iniciamos la jugada defensiva
-    setFichas(1);
+    if(tipoInicio == 1){
+        //Iniciamos la jugada Defensiva
+        setFichas(1);
+    }else if(tipoInicio == 2){
+        //Iniciamos la jugada Agresiva
+        setFichas(2);
+    }else if(tipoInicio == 3){
+        //Ponemos las fichas a mano
+        setFichas(3);
+    }
+
 
     pintaParrilla();
 
@@ -638,13 +648,11 @@ void juego(){
 
 }
 
-
 int main(){
 
     //De momento llamamos al juego y no al menu.
 
-    juego();
+    juego(2);
     //menu();
 
 }
-
