@@ -390,7 +390,7 @@ void movimientoCursor(){
                     //Comprobar con un FOR que desde X INI -> X FIN las casillas == 0
                     //TODO
 
-                    // Lo dejo así temporalmente (Podremos saltar fichas del enemigo)
+                    // Lo dejo asi temporalmente (Podremos saltar fichas del enemigo)
 
                     if(tablero[posActualX + 6][posActualY] == 0){
                         tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
