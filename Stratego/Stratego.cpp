@@ -354,11 +354,7 @@ void movimientoCursor(){
                     hayFichaSeleccionada = true;  //Tenemos una ficha en la "mano"
                     cursorPos(115, 5);
 
-                    //printf("%d", fichaSeleccionada); // -> Borrar
-
-
                     if(hayFichaSeleccionada){
-
 
                             //Ponemos color blanco
                             setColors(0, 15);
@@ -387,7 +383,14 @@ void movimientoCursor(){
 
             }else{
 
+                int posFichaDestinoX = posActualX + 6;
+                int posFichaDestinoY = posActualY;
 
+                if(fichaSeleccionada == 9){ //Explorador
+                       //Comprobar con un FOR que desde X INI -> X FIN las casillas == 0
+
+
+                }else if(posFichaSeleccionadaX - posFichaDestinoX == 1 && posFichaSeleccionadaY - posFichaDestinoY == 0){
 
                     if(tablero[posActualX + 6][posActualY] == 0){
                         tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
@@ -396,14 +399,17 @@ void movimientoCursor(){
                         compruebaCombate(1, valorAtacante, posFichaSeleccionadaX, posFichaSeleccionadaY, posActualX + 6, posActualY);
                     }
 
+                    tablero[posFichaSeleccionadaX][posFichaSeleccionadaY] = 0; // Ponemos la ficha anterior a 0;
+                    hayFichaSeleccionada = false;
 
+                    //Si llegamos hasta aqui, pasamos el turno al PC;
+                    turno *= -1;
+                    pintaParrilla();
 
-                tablero[posFichaSeleccionadaX][posFichaSeleccionadaY] = 0; // Ponemos la ficha anterior a 0;
-                hayFichaSeleccionada = false;
+                }else{
+                    logs(8); //No puedes mover tantas posiciones
+                }
 
-                //Si llegamos hasta aqui, pasamos el turno al PC;
-                turno *= -1;
-                pintaParrilla();
             }
 
 
@@ -615,6 +621,9 @@ void logs(int log){
         break;
         case 7:
             printf("No puedes mover la bandera!");
+        break;
+        case 8:
+            printf("No puedes mover a esa casilla!");
         break;
     }
 
