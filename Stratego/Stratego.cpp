@@ -70,6 +70,7 @@ int arrayTemporalJugada[4][10] = {
 
 void juego(int tipoInicio);
 void logs(int log);
+void logFichas();
 void movimientoPC();
 void compruebaCombate(int turno, int valorAtacante, int posX_Inicio, int PosY_Inicio, int PosX_Destino, int posY_Destino);
 
@@ -646,6 +647,18 @@ void logs(int log){
 
 }
 
+void logFichas(){
+    setColors(0, 13);
+    //Dibujamos ventana de debug
+    ventana(112, 20, 42, 13, 0);
+    cursorPos(120, 20);
+    printf(" Fichas en el tablero ");
+
+
+
+
+}
+
 void juego(int tipoInicio){
     ventanaConsola(155,73, "iJoStratego");
     logs(1); //Log 1 -> Partida Iniciada
@@ -664,7 +677,7 @@ void juego(int tipoInicio){
     }
 
     pintaParrilla();
-
+    logFichas();
 
     // Marcamos la primera casilla
     setColors(0, 13);
