@@ -61,7 +61,7 @@ char *nombreFicha(int ficha){
 }
 
 
-void asignaArray(int array_A[10][4], int array_B[10][4]){
+void asignaArray(int array_A[4][10], int array_B[4][10]){
     for(int y = 0; y < 4; y++){
         for(int x = 0; x < 10; x++){
             array_A[x][y] = array_B[x][y];

@@ -59,7 +59,14 @@ int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0
 };
 
-int arrayTemporalJugada[10][4];
+int arrayTemporalJugada[4][10] = {
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0
+};
+
+
 
 void juego(int tipoInicio);
 void logs(int log);
@@ -113,13 +120,15 @@ void setFichas(int tipoJugada){
     switch (tipoJugada){
         case 1: //Jugada defensiva
             // Nos 'traemos' el array de la jugada a uno temporal
-            asignaArray(arrayTemporalJugada, j_Defensiva);
+            //asignaArray(arrayTemporalJugada, j_Defensiva);
             setColors(0, 15);
             cursorPos(115, 1);
             printf("Estrategia Defensiva");
+
             for(int i = 6; i < 10; i++){
+                //cursorPos(115, i++);
                 for(int j = 0; j < 10; j++){
-                    tablero[i][j] = arrayTemporalJugada[i-6][j];
+                    tablero[i][j] = j_Defensiva[i - 6][j];
                 }
             }
         break;
@@ -131,7 +140,7 @@ void setFichas(int tipoJugada){
             printf("Estrategia Agresiva");
             for(int i = 6; i < 10; i++){
                 for(int j = 0; j < 10; j++){
-                    tablero[i][j] = arrayTemporalJugada[i-6][j];
+                    tablero[i][j] = arrayTemporalJugada[i - 6][j];
                 }
             }
         break;
@@ -337,7 +346,7 @@ void movimientoCursor(){
                 cursorPosAnteriorY = cursorY;
 
                 /* This will not crash anymore! :D */
-                if(fichaSeleccionada <= 12 && fichaSeleccionada > 0){
+                if(fichaSeleccionada <= 12 && fichaSeleccionada > 0 && fichaSeleccionada != 11 && fichaSeleccionada != 12){
 
                     //C'mon con las comprobaciones
 
@@ -367,12 +376,18 @@ void movimientoCursor(){
                         logs(4);
                     }else if(fichaSeleccionada == 0){
                         logs(5); // Log 5 -> Hueco vacio!
+                    }else if(fichaSeleccionada == 11){
+                        logs(6); // Log 6 -> Bomba
+                    }else if(fichaSeleccionada == 12){
+                        logs(7); // Log 6 -> Bandera
                     }else{
                         logs(3); // Log 3 -> No puedes usar la ficha del oponente
                     }
                }
 
             }else{
+
+
 
                     if(tablero[posActualX + 6][posActualY] == 0){
                         tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
@@ -382,9 +397,8 @@ void movimientoCursor(){
                     }
 
 
+
                 tablero[posFichaSeleccionadaX][posFichaSeleccionadaY] = 0; // Ponemos la ficha anterior a 0;
-
-
                 hayFichaSeleccionada = false;
 
                 //Si llegamos hasta aqui, pasamos el turno al PC;
@@ -595,6 +609,12 @@ void logs(int log){
         break;
         case 5:
             printf("Esta posicion esta vacia!");
+        break;
+        case 6:
+            printf("No puedes mover la bomba!");
+        break;
+        case 7:
+            printf("No puedes mover la bandera!");
         break;
     }
 
