@@ -21,34 +21,34 @@ void error(int e){
 
 char *nombreFicha(int ficha){
     switch (ficha){
-        case 1:
+        case 10:
             return "Mariscal";
             break;
-        case 2:
+        case 9:
             return "General";
             break;
-        case 3:
+        case 8:
             return "Coronel";
             break;
-        case 4:
+        case 7:
             return "Comandante";
             break;
-        case 5:
+        case 6:
             return "Capitan";
             break;
-        case 6:
+        case 5:
             return "Teniente";
             break;
-        case 7:
+        case 4:
             return "Sargento";
             break;
-        case 8:
+        case 3:
             return "Minero";
             break;
-        case 9:
+        case 2:
             return "Explorador";
             break;
-        case 10:
+        case 1:
             return "Espia";
             break;
         case 11:

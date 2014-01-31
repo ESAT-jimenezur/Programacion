@@ -22,7 +22,7 @@
 ** Variables Globales **
 ************************/
 
-bool debug = true;
+bool debug = false;
 bool seEstaJugando = true;
 int posInicialCursorX = 0;
 
@@ -45,6 +45,9 @@ int fichasMovidas1aFilaPC = 0;
 int fichaSeleccionada = 0;
 bool hayFichaSeleccionada;
 int turno = 1; //Turno 1 = Persona, -1 = PC
+
+int mariscales_J = 1, generales_J = 1, coroneles_J = 2, comandantes_J = 3, capitanes_J = 4, tenientes_J = 4, sargentos_J = 4, mineros_J = 5, exploradores_J = 8, espias_J = 1, bombas_J = 6, banderas_J = 1;
+int mariscales_PC = 1, generales_PC = 1, coroneles_PC = 2, comandantes_PC = 3, capitanes_PC = 4, tenientes_PC = 4, sargentos_PC = 4, mineros_PC = 5, exploradores_PC = 8, espias_PC = 1, bombas_PC = 6, banderas_PC = 1;
 
 int tablero[10][10] = {
     0,0,0,0,0,0,0,0,0,0,
@@ -649,10 +652,102 @@ void logs(int log){
 
 void logFichas(){
     setColors(0, 13);
-    //Dibujamos ventana de debug
-    ventana(112, 20, 42, 13, 0);
-    cursorPos(120, 20);
+    ventana(112, 15, 42, 17, 0);
+
+
+    setColors(0,14);
+
+
+    cursorPos(120, 15);
     printf(" Fichas en el tablero ");
+
+    /* JUGADOR */
+
+    cursorPos(113, 16);
+    printf(" -Fichas Jugador- ");
+
+    cursorPos(113, 18);
+    printf("Banderas: %d", banderas_J);
+
+    cursorPos(113, 21);
+    printf("Bombas: %d", bombas_J);
+
+    cursorPos(113, 22);
+    printf("Espias: %d", espias_J);
+
+    cursorPos(113, 23);
+    printf("Mariscales: %d", mariscales_J);
+
+    cursorPos(113, 24);
+    printf("Generales: %d", generales_J);
+
+    cursorPos(113, 25);
+    printf("Coroneles: %d", coroneles_J);
+
+
+    cursorPos(113, 26);
+    printf("Comandantes: %d", comandantes_J);
+
+    cursorPos(113, 27);
+    printf("Capitanes: %d", capitanes_J);
+
+    cursorPos(113, 28);
+    printf("Tenientes: %d", tenientes_J);
+
+
+    cursorPos(113, 29);
+    printf("Sargentos: %d", sargentos_J);
+
+    cursorPos(113, 30);
+    printf("Mineros: %d", mineros_J);
+
+    cursorPos(113, 31);
+    printf("Exploradores: %d", exploradores_J);
+
+
+
+    /* PC */
+
+    cursorPos(135, 16);
+    printf(" -Fichas PC- ");
+
+    cursorPos(135, 18);
+    printf("Banderas: %d", banderas_PC);
+
+    cursorPos(135, 21);
+    printf("Bombas: %d", bombas_PC);
+
+    cursorPos(135, 22);
+    printf("Espias: %d", espias_PC);
+
+    cursorPos(135, 23);
+    printf("Mariscales: %d", mariscales_PC);
+
+    cursorPos(135, 24);
+    printf("Generales: %d", generales_PC);
+
+    cursorPos(135, 25);
+    printf("Coroneles: %d", coroneles_PC);
+
+
+    cursorPos(135, 26);
+    printf("Comandantes: %d", comandantes_PC);
+
+    cursorPos(135, 27);
+    printf("Capitanes: %d", capitanes_PC);
+
+    cursorPos(135, 28);
+    printf("Tenientes: %d", tenientes_PC);
+
+
+    cursorPos(135, 29);
+    printf("Sargentos: %d", sargentos_PC);
+
+    cursorPos(135, 30);
+    printf("Mineros: %d", mineros_PC);
+
+    cursorPos(135, 31);
+    printf("Exploradores: %d", exploradores_PC);
 
 
 
@@ -678,6 +773,7 @@ void juego(int tipoInicio){
 
     pintaParrilla();
     logFichas();
+
 
     // Marcamos la primera casilla
     setColors(0, 13);
