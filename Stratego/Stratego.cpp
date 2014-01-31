@@ -135,6 +135,13 @@ void setFichas(int tipoJugada){
                 }
             }
         break;
+        case 3:
+
+
+
+
+
+        break;
     }
 
 
@@ -412,7 +419,7 @@ void movimientoPC(){
 
     int fichaPC = tablero[posFichaPCX][posFichaPCY];
 
-    if(fichaPC == 110 || fichaPC == 111){
+    if(fichaPC == 111 || fichaPC == 112 || fichaPC <= 12){
         movimientoPC();
     }else{
 
@@ -597,6 +604,8 @@ void juego(int tipoInicio){
     ventanaConsola(155,73, "iJoStratego");
     logs(1); //Log 1 -> Partida Iniciada
 
+
+
     if(tipoInicio == 1){
         //Iniciamos la jugada Defensiva
         setFichas(1);
@@ -608,8 +617,8 @@ void juego(int tipoInicio){
         setFichas(3);
     }
 
-
     pintaParrilla();
+
 
     // Marcamos la primera casilla
     setColors(0, 13);
@@ -652,7 +661,7 @@ int main(){
 
     //De momento llamamos al juego y no al menu.
 
-    juego(2);
+    juego(1);
     //menu();
 
 }
