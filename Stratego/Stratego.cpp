@@ -387,7 +387,24 @@ void movimientoCursor(){
                 int posFichaDestinoY = posActualY;
 
                 if(fichaSeleccionada == 9){ //Explorador
-                       //Comprobar con un FOR que desde X INI -> X FIN las casillas == 0
+                    //Comprobar con un FOR que desde X INI -> X FIN las casillas == 0
+                    //TODO
+
+                    // Lo dejo así temporalmente (Podremos saltar fichas del enemigo)
+
+                    if(tablero[posActualX + 6][posActualY] == 0){
+                        tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
+                    }else if(tablero[posActualX + 6][posActualY] >= 100){
+                        int valorAtacante = fichaSeleccionada;
+                        compruebaCombate(1, valorAtacante, posFichaSeleccionadaX, posFichaSeleccionadaY, posActualX + 6, posActualY);
+                    }
+
+                    tablero[posFichaSeleccionadaX][posFichaSeleccionadaY] = 0; // Ponemos la ficha anterior a 0;
+                    hayFichaSeleccionada = false;
+
+                    //Si llegamos hasta aqui, pasamos el turno al PC;
+                    turno *= -1;
+                    pintaParrilla();
 
 
                 }else if(posFichaSeleccionadaX - posFichaDestinoX == 1 && posFichaSeleccionadaY - posFichaDestinoY == 0){
