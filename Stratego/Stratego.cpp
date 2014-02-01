@@ -23,6 +23,8 @@
 ************************/
 
 bool debug = false;
+bool acercaDe = false;
+bool instrucciones = false;
 bool seEstaJugando = true;
 int posInicialCursorX = 0;
 
@@ -346,11 +348,19 @@ void menu(){
     printf("*****************************                                                                                                 *****************************");
     printf("*****************************                                                                                                 *****************************");
     printf("*****************************                                                                                                 *****************************");
+    if(instrucciones){
+    printf("*****************************       Si no sabes como jugar, mejor leete el manual de usuario incluido con el juego! ;)        *****************************");
+    }else{
+    printf("*****************************                                                                                                 *****************************");
+    }
     printf("*****************************                                                                                                 *****************************");
     printf("*****************************                                                                                                 *****************************");
     printf("*****************************                                                                                                 *****************************");
+    if(acercaDe){
+    printf("*****************************       Juego realizado por Jose Luis Jimenez Urbano en 1o de Programacion en ESAT ( C++ )        *****************************");
+    }else{
     printf("*****************************                                                                                                 *****************************");
-    printf("*****************************                                                                                                 *****************************");
+    }
     printf("*****************************                                                                                                 *****************************");
     printf("*****************************                                                                                                 *****************************");
     printf("*****************************                                                                                                 *****************************");
@@ -402,10 +412,22 @@ void menu(){
             menuOpciones();
         break;
         case '3':
-            menuNuevaPartida();
+            if(instrucciones){
+                instrucciones = false;
+                menu();
+            }else{
+                instrucciones = true;
+                menu();
+            }
         break;
         case '4':
-            menuNuevaPartida();
+            if(acercaDe){
+                acercaDe = false;
+                menu();
+            }else{
+                acercaDe = true;
+                menu();
+            }
         break;
         default:
             menu();
@@ -529,7 +551,7 @@ void pintaParrilla(){
                 if(tablero[i][j] == 0){
                       printf("   ");
                 }else if(tablero[i][j] == 999){
-                    printf(" ");
+                    printf("     ");
                 }else{
                     printf("%d ", tablero[i][j]);
                 }
@@ -538,7 +560,7 @@ void pintaParrilla(){
                 if(tablero[i][j] >= 100 && tablero[i][j] < 999){
                     printf("?");
                 }else if(tablero[i][j] == 0 || tablero[i][j] == 999){
-                    printf(" ");
+                    printf("     ");
                 }else{
                     printf("%d ", tablero[i][j]);
                 }
@@ -832,11 +854,12 @@ void compruebaCombate(int turno, int valorAtacante, int posX_Inicio, int posY_In
 
     defensor -= 100; // Ya no tiene ventaja el PC! :D
 
-    //cursor
+    ventana(112, 8, 42, 5, 0);
+    cursorPos(125, 8);
+    printf("Log de Combate");
 
-    cursorPos(125, 30);
-    //printf("%d vs %d ", atacante, defensor);
-    //printf("POS: %d:%d(%d)  -> POS %d:%d(%d)", posX_Inicio, posY_Inicio,atacante, posX_Destino, posY_Destino, defensor);
+    cursorPos(113, 10);
+
     if(turno == 1){ // Usuario
         if(atacante > defensor){
             tablero[posX_Destino][posY_Destino] = atacante;
@@ -958,6 +981,7 @@ void logs(int log){
 }
 
 void logFichas(){
+
     setColors(0, 13);
     ventana(112, 15, 42, 17, 0);
 
