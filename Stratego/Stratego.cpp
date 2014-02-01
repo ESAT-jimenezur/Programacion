@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <iostream>
 #include <string>
+#include <math.h>
 
 #include <iJos.h>
 
@@ -705,9 +706,6 @@ void movimientoCursor(){
     }
 
     switch (c){
-        /**
-            REVISAR QUE NO SE SALGA DE PANTALLA
-        **/
 
         case 72:
             // Arriba
@@ -832,6 +830,8 @@ void movimientoCursor(){
                 int posFichaDestinoX = posActualX + 6;
                 int posFichaDestinoY = posActualY;
 
+                printf("%d:%d", posFichaSeleccionadaX, posFichaDestinoX);
+
                 if(fichaSeleccionada == 9){ //Explorador
                     //Comprobar con un FOR que desde X INI -> X FIN las casillas == 0
                     //TODO
@@ -852,8 +852,7 @@ void movimientoCursor(){
                     turno *= -1;
                     pintaParrilla();
 
-
-                }else if(posFichaSeleccionadaX - posFichaDestinoX == 1 && posFichaSeleccionadaY - posFichaDestinoY == 0){
+                }else if(posFichaSeleccionadaX - posFichaDestinoX == 1 && posFichaSeleccionadaY - posFichaDestinoY == 0 || abs((posFichaSeleccionadaY + 1) - (posFichaDestinoY + 1)) == 1 && posFichaSeleccionadaX - posFichaDestinoX == 0){
 
                     if(tablero[posActualX + 6][posActualY] == 0){
                         tablero[posActualX + 6][posActualY] = fichaSeleccionada; // Ponemos la ficha nueva al valor de la ficha
@@ -970,18 +969,38 @@ void compruebaCombate(int turno, int valorAtacante, int posX_Inicio, int posY_In
     ventana(112, 8, 42, 5, 0);
     cursorPos(125, 8);
     printf("Log de Combate");
-
     cursorPos(113, 10);
 
     if(turno == 1){ // Usuario
         if(atacante > defensor){
-            tablero[posX_Destino][posY_Destino] = atacante;
-            printf("Combate! %d vs %d gana atacante", atacante, defensor);
-            pintaParrilla();
+                if(defensor == 11){ // Nos chocamos con una bomba (Perdemos)
+                    tablero[posX_Inicio][posY_Inicio] = defensor;
+                    printf("Te has chocado con una bomba!");
+                    fichas_J--;
+                    pintaParrilla();
+                }else{
+                    tablero[posX_Destino][posY_Destino] = atacante;
+                    printf("Combate! %d vs %d gana atacante", atacante, defensor);
+                    fichas_PC--;
+                    pintaParrilla();
+                }
         }else{
-            tablero[posX_Inicio][posY_Inicio] = defensor;
-            printf("Combate! %d vs %d gana defensor", atacante, defensor);
-            pintaParrilla();
+            if(atacante == 1 && defensor == 10){
+                tablero[posX_Destino][posY_Destino] = atacante;
+                printf("Tu espia ha matado al mariscal enemigo!");
+                fichas_PC--;
+                pintaParrilla();
+            }else if(atacante == 3 && defensor == 11){
+                tablero[posX_Destino][posY_Destino] = atacante;
+                printf("Tu minero ha desactivado la bomba!");
+                fichas_PC--;
+                pintaParrilla();
+            }else{
+                tablero[posX_Inicio][posY_Inicio] = defensor;
+                printf("Combate! %d vs %d gana defensor", atacante, defensor);
+                fichas_J--;
+                pintaParrilla();
+            }
         }
     }else{
 
