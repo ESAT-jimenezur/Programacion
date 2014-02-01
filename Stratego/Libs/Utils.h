@@ -72,3 +72,5 @@ void asignaArray(int array_A[4][10], int array_B[4][10]){
 
 
 
+
+
